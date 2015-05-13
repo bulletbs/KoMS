@@ -1,0 +1,2 @@
+<?php defined('SYSPATH') or die('No direct script access.');?>
+<?= HTML::anchor(URL::site('admin/sitemap/generate'), __('Generate'), array('class'=>'btn btn-success pull-right', 'title'=>'Generate')) ?>
