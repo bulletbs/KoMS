@@ -67,7 +67,7 @@ class Controller_Widgets_Adminmainmenu extends Controller_System_Widgets {
         if($this->current_user)
             $current_user = !empty($this->current_user->profile->name) ? $this->current_user->profile->name : $this->current_user->username;
         $this->template->bind('current_user_username', $current_user);
-        $this->template->set('menutitle', __('Backend'));
+        $this->template->set('menutitle', $this->config['project']['name']);
         $this->template->set('menu', $menu);
         $this->template->set('select', Request::initial()->controller());
     }
