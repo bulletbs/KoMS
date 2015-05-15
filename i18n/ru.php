@@ -40,6 +40,7 @@ return array(
     'View' => 'Отображение',
     'Delete' => 'Удалить',
     'Delete selected' => 'Удалить выбраные',
+    'Are you sure?' => 'Вы уверены?',
     'Check selected' => 'Подтвердить выбраные',
     'Nothing found' => 'Ничего не найдено',
     'Save' => 'Сохранить',
@@ -97,4 +98,6 @@ return array(
     ':field does not match the required format'            => 'Поле «:field» не соответствует требуемому формату',
     ':field must be a url'                                 => 'Поле «:field» должно быть URL-адресом',
     ':field must be unique (same value exists)'            => 'Поле «:field» должно быть уникальным (такое значение уже существует)',
+
+    ':field contain restricted words'            => 'Поле «:field» содержит запрещенные слова',
 );

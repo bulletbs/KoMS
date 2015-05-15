@@ -37,6 +37,12 @@ class Controller_Admin_Main extends Controller_System_Admin{
             ;
             $counters['catalog'] = ORM::factory('CatalogCompany')->count_all();
         }
+        if(isset($modules['board'])){
+            $this->template->content
+                ->set('moderate_board', ORM::factory('BoardAd')->countNotModerated())
+            ;
+            $counters['board'] = ORM::factory('BoardAd')->count_all();
+        }
 
         $counters['pages'] = ORM::factory('Page')->count_all();
         $counters['users'] = ORM::factory('User')->count_all();
