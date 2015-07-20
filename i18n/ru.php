@@ -56,6 +56,7 @@ return array(
     'Title' => 'Заголовок',
     'Alias' => 'Алиас',
     'Status' => 'Отображается',
+    'Refresh' => 'Обновить',
     'Text on page' => 'Текст на странице',
 
     /* Pagination translate */
