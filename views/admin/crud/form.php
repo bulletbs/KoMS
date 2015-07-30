@@ -3,6 +3,7 @@
 <?=Form::open(Request::$initial->url() . URL::query(), array('class'=>'', 'enctype'=>'multipart/form-data'))?>
 <?if($errors) echo View::factory('admin/validation_errors', array('errors'=>$errors))->render()?>
 <div class="pull-right">
+    <?= Form::input('submit',__('Save'),array('type'=>'submit', 'class'=>'btn btn-primary'))?>
     <?= Form::button('submit',__('Save'),array('type'=>'submit', 'class'=>'btn btn-primary'))?>
     <?= Form::button('cancel',__('Cancel'),array('class'=>'btn'))?>
 </div>
@@ -16,6 +17,7 @@
     <? elseif($field_data['type'] == 'checkbox'): ?>
         <div class="checkbox">
             <label>
+            <?= Form::hidden($field, 0) ?>
             <?= Form::checkbox($field, 1, $model->{$field}>0 ? TRUE : FALSE) ?>
             <?= $labels[$field] ?>
             </label>
