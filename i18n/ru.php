@@ -101,4 +101,5 @@ return array(
     ':field must be unique (same value exists)'            => 'Поле «:field» должно быть уникальным (такое значение уже существует)',
 
     ':field contain restricted words'            => 'Поле «:field» содержит запрещенные слова',
+    ':field duplicate one of yours ads'            => 'Поле «:field» дублирует одно из ваших существующих объявлений',
 );

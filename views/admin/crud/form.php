@@ -4,7 +4,6 @@
 <?if($errors) echo View::factory('admin/validation_errors', array('errors'=>$errors))->render()?>
 <div class="pull-right">
     <?= Form::input('submit',__('Save'),array('type'=>'submit', 'class'=>'btn btn-primary'))?>
-    <?= Form::button('submit',__('Save'),array('type'=>'submit', 'class'=>'btn btn-primary'))?>
     <?= Form::button('cancel',__('Cancel'),array('class'=>'btn'))?>
 </div>
 <h3><?=(isset($model->id) ? __("Edit") : __("Add"))?> <?= $item_name?></h3>
