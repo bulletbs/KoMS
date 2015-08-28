@@ -31,7 +31,5 @@
         <small class="muted">Powered by <?php echo HTML::anchor('http://kohanaframework.org/', 'Kohana Framework')?></small>
     </div>
 </div>
-
-<?//= View::factory('profiler/stats');?>
 </body>
 </html>

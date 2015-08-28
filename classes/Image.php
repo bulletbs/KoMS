@@ -9,9 +9,20 @@
 
 abstract class Image extends Kohana_Image{
 
+    CONST WATERMARK_TOP_LEFT = 1;
+    CONST WATERMARK_TOP_RIGHT = 2;
+    CONST WATERMARK_BOTTOM_LEFT = 3;
+    CONST WATERMARK_BOTTOM_RIGHT = 4;
+    CONST WATERMARK_CENTER = 5;
+    CONST WATERMARK_CENTER_TOP = 6;
+    CONST WATERMARK_CENTER_BOTTOM = 7;
 
     public function smart_resize($width, $height){
         $this->_do_smart_resize($width, $height);
+    }
+
+    public function smart_watermark($mark, $position, $opacity){
+        $this->_do_smart_watermark($mark, $position, $opacity);
     }
 
     /**
