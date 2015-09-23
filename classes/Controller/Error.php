@@ -70,8 +70,7 @@ class Controller_Error extends Controller_System_Page
 
         $this->template->content = View::factory('error/404')
             ->set('page_title', __('Page not found'))
-            ->set('error_message', $this->_message)
-            ->set('requested_page', $this->_requested_page);
+            ->set('error_message', $this->_message);
     }
 
     /**

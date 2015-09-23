@@ -102,8 +102,8 @@ class Image_GD extends Kohana_Image_GD{
                 $main_img_obj_min_y = round(($main_img_obj_h - $watermark_img_obj_h) / 2 + floor($main_img_obj_h / 5));
                 break;
         }
-        $main_img_obj_max_x	= $main_img_obj_min_x + $watermark_img_obj_w;
-        $main_img_obj_max_y	= $main_img_obj_min_y + $watermark_img_obj_h;
+        $main_img_obj_max_x	= min($main_img_obj_w, $main_img_obj_min_x + $watermark_img_obj_w);
+        $main_img_obj_max_y	= min($main_img_obj_h, $main_img_obj_min_y + $watermark_img_obj_h);
 
         # walk through main image
         for( $y = $main_img_obj_min_y; $y < $main_img_obj_max_y; $y++ ) {

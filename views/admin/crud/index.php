@@ -5,7 +5,16 @@
 <?= $pagination->render()?>
 <div class="clearfix"></div>
 <?if($sort_fields) echo View::factory('admin/crud/sort', array('sort_fields'=>$sort_fields))->render();?>
-<?if($order_field):?><?= Form::open($crud_uri . '/setorder'. URL::query())?><?endif;?>
+<?if($order_field && !count($multi_operations)):?><?= Form::open($crud_uri . '/setorder'. URL::query())?><?endif;?>
+<?if(count($multi_operations)):?>
+    <?php echo Form::open(URL::site($crud_uri .'/multi') . URL::query())?>
+    <div class="pull-right">
+    <?foreach($multi_operations as $_operation=>$_operation_name):?>
+        <?php echo Form::button($_operation, __($_operation_name), array('class'=>'btn btn-danger', 'data-bb'=>'confirm'))?>
+    <?endforeach;?>
+    </div>
+    <div class="clearfix"></div><br>
+<?endif;?>
 <div class="well">
 <table class="table table-striped table-condensed">
 <thead>
@@ -15,6 +24,7 @@
     <?endforeach;?>
         <th><?=__('Operations')?></th>
     <?if($order_field):?><th width="1%"><?= Form::submit('save',__('Order'), array('class'=>'btn'))?></th><?endif;?>
+    <?if(count($multi_operations)):?><th width="1%"><input type="checkbox" value="1" id="toggle_checkbox"></th><?endif;?>
     </tr>
 </thead>
 <?if(!count($items)):?>
@@ -35,6 +45,7 @@
             </div>
         </td>
         <?if($order_field):?><td width="1%"><?= Form::input('orders['.$item->id.']', $item->{$order_field}, array('class'=>'col-md-9'))?></td><?endif;?>
+        <?if(count($multi_operations)):?><td><input type="checkbox" name="operate[]" value="<?php echo $item->id?>"></td><?endif;?>
     </tr>
 <? endforeach; ?>
 </table>

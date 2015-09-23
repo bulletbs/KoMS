@@ -13,6 +13,7 @@ class Controller_Admin_Crud extends Controller_System_Admin{
     public $skip_auto_render = array(
         'delete',
         'setorder',
+        'multi',
     );
 
     /**
@@ -136,6 +137,19 @@ class Controller_Admin_Crud extends Controller_System_Admin{
     protected $_crud_name;
     protected $_crud_uri;
 
+    /**
+     * Multi operation array
+     *  array(
+           'del_selected' => 'Delete selected',
+     *  )
+     * And then define method for process selected records
+     * like this:
+     *  protected function _multi_del_selected(){ ... }
+     *
+     * @var array
+     */
+    protected $_multi_operations = array();
+
     public function before(){
         $this->skip_auto_content_apply = Arr::merge($this->crud_render_actions, $this->skip_auto_content_apply);
 
@@ -174,6 +188,8 @@ class Controller_Admin_Crud extends Controller_System_Admin{
     public function action_index(){
         $this->template->scripts[] = "media/libs/bootstrap/js/bootbox.min.js";
         $this->template->scripts[] = "media/libs/bootstrap/js/bbox_".I18n::$lang.".js";
+        if(count($this->_multi_operations))
+            $this->template->scripts[] = "media/js/admin/check_all.js";
 
         $count = ORM::factory($this->_model_name);
         $this->_applyQueryFilters($count);
@@ -209,6 +225,7 @@ class Controller_Admin_Crud extends Controller_System_Admin{
             ->set('sort_fields',$this->_sort_fields)
             ->set('order_field',$this->_setorder_field)
             ->set('advanced_actions',$this->_advanced_list_actions)
+            ->set('multi_operations',$this->_multi_operations)
         ;
     }
 
@@ -221,6 +238,23 @@ class Controller_Admin_Crud extends Controller_System_Admin{
         foreach($orders as $item_id=>$order)
             $item = ORM::factory($this->_model_name, $item_id)->set($this->_setorder_field,  $order)->save();
         $this->go($this->_crud_uri. URL::query());
+    }
+
+    /**
+     * Multi data processing
+     * @throws Kohana_Exception
+     */
+    public function action_multi(){
+        $ids = Arr::get($_POST, 'operate', array());
+        if(count($ids)){
+            foreach($this->_multi_operations as $_operation=>$_operation_name)
+                if(NULL !== Arr::get($_POST, $_operation)){
+                    if(!method_exists($this, '_multi_'.$_operation))
+                        throw new Kohana_Exception('Method _multi_'.$_operation.' does not defined');
+                    $this->{'_multi_'.$_operation}($ids);
+                }
+        }
+        $this->redirect($this->_crud_uri . URL::query());
     }
 
     /**
