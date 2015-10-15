@@ -34,6 +34,8 @@ class Controller_System_Template extends Controller_System_Security
     public $scripts = array();
     public $styles = array();
 
+    public $metatags = array();
+
     /**
      * @var Breadcrumbs
      */
@@ -90,15 +92,10 @@ class Controller_System_Template extends Controller_System_Security
         if ($this->auto_render === TRUE && $this->request->is_ajax() !== TRUE ) {
             $this->template->styles = array_merge($this->template->styles, $this->styles);
             $this->template->scripts = array_merge($this->template->scripts, $this->scripts);
+            $this->template->metatags = $this->metatags;
 
             $this->template->logged_in = $this->logged_in;
             $this->template->current_user = $this->current_user;
-            unset($styles, $scripts);
-
-            // Заносим в переменную messages данные из сессии
-//            $this->template->messages = View::factory('global/messages', array(
-//                'messages' => Session::instance()->get_once('flash_messages')
-//            ));
 
             $this->response->body($this->template->render());
         }
@@ -109,8 +106,6 @@ class Controller_System_Template extends Controller_System_Security
                 if (is_array($this->json) AND !isset($this->json['status'])) {
                     $this->json['status'] = FALSE;
                 }
-//                echo Debug::vars($this->json);
-//                die();
 
                 // То в темплейте мы выводим не шаблон, а кодированные в json format данные
                 $this->template->content = json_encode($this->json);
@@ -182,5 +177,10 @@ class Controller_System_Template extends Controller_System_Security
         $this->template->title = $this->config->view['title'] ;
         $this->template->keywords = $this->config->view['keywords'];
         $this->template->description = $this->config->view['description'];
+    }
+
+    
+    public function add_meta_content(Array $parameters = array()){
+        $this->metatags[] = $parameters;
     }
 }

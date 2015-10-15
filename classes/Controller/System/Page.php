@@ -12,6 +12,8 @@ class Controller_System_Page extends Controller_System_Template
     public $keywords = '';
     public $description = '';
 
+    public $headers = array();
+
     public $login_action = 'enter';
 
     public function before()
@@ -25,11 +27,8 @@ class Controller_System_Page extends Controller_System_Template
              */
             if(Request::$current->is_initial() || $this->request->controller()=='Error'){
                 $this->breadcrumbs = Breadcrumbs::factory()->add('Главная', '/', 0);
-                $this->styles[] = "media/css/style.css";
-                $this->styles[] = "media/libs/pure-release-0.5.0/buttons-min.css";
-                $this->styles[] = "media/libs/pure-release-0.5.0/pure-extras.css";
-                $this->styles[] = "/media/libs/font-awesome-4.1.0/css/font-awesome.min.css";
-                $this->scripts[] = 'media/libs/jquery-1.11.1.min.js';
+                $this->styles += $this->config->styles;
+                $this->scripts += $this->config->scripts;
             }
         }
     }
@@ -55,8 +54,19 @@ class Controller_System_Page extends Controller_System_Template
             $this->template->breadcrumbs = $this->breadcrumbs;
 
             unset($styles, $scripts);
+
+            foreach($this->headers as $_header)
+                header($_header);
         }
 
         parent::after();
+    }
+
+    /**
+     * Add header to headers query
+     * @param $content
+     */
+    public function add_page_header($content){
+        $this->headers[] = $content;
     }
 }
