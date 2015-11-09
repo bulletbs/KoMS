@@ -27,7 +27,4 @@ return array(
     'url'           => ':field must be a url',
     'captcha_mismatch'           => 'Captcha mismatch',
     'unique'           => ':field must be unique (same value exists)',
-
-    'stopwords'     =>  ':field contain restricted words',
-    'duplicates'     =>  ':field duplicate one of yours ads',
 );

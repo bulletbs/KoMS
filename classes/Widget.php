@@ -17,7 +17,7 @@ class Widget  {
     protected $_cachetime = 0;                       // Время кеширования (0 - без кеширования)
 
 
-    public function __construct($widget_name, array $params = NULL, $route_name = NULL)
+    public function __construct($widget_name, array $params = array(), $route_name = NULL)
     {
         $this->_widget_name = $widget_name;
 
@@ -38,7 +38,7 @@ class Widget  {
      * @param   array   Массив передаваемых параметров
      * @param   string  Название роута данного виджета
     */
-    public static function factory($widget_name, array $params = NULL)
+    public static function factory($widget_name, array $params = array())
     {
         return new Widget($widget_name, $params);
     }

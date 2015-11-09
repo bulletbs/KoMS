@@ -6,7 +6,7 @@
         <?foreach($errors as $k=>$err):?>
             <?if($k == '_external' && is_array($err)):?>
                 <?foreach($err as $er):?>
-                    <li><?= $er ?></li>
+                    <li><?php echo  $er ?></li>
                 <?endforeach;?>
             <?else:?>
                 <li><?echo $err;?></li>

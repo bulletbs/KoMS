@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 <h2><?php echo $moderate_name?></h2>
 
-<?= $pagination->render()?>
+<?php echo  $pagination->render()?>
 
 <?php echo Form::open(URL::site( $moderate_uri.'/multi'))?>
 <?if(count($items)):?>
@@ -31,14 +31,14 @@
 <?endif;?>
 <? foreach($items as $item): ?>
     <tr>
-        <td><?=$item->id?></td>
+        <td><?php echo $item->id?></td>
         <? foreach($list_fields as $field): ?>
         <th><?php echo $item->$field ?></th><?endforeach?>
         <td style="width: 150px;">
             <div class="btn-group">
-            <a href="<?=URL::site( $crud_uri.'/edit/'.$item->id . URL::query())?>" class='btn btn-inverse' title='<?=__('Edit')?>'><i class="glyphicon glyphicon-edit"></i></a>
-            <a data-bb="confirm" href="<?=URL::site( $moderate_uri.'/delete/'.$item->id . URL::query())?>" class='btn btn-inverse' title='<?=__('Delete')?>'><i class="glyphicon glyphicon-trash"></i></a>
-            <?if(!$item->$moderate_field):?><a href="<?=URL::site( $moderate_uri.'/check/'.$item->id . URL::query())?>" class='btn btn-inverse' title='<?=__('Moderate')?>'><i class="glyphicon glyphicon-check"></i></a><?endif?>
+            <a href="<?php echo URL::site( $crud_uri.'/edit/'.$item->id . URL::query())?>" class='btn btn-inverse' title='<?php echo __('Edit')?>'><i class="glyphicon glyphicon-edit"></i></a>
+            <a data-bb="confirm" href="<?php echo URL::site( $moderate_uri.'/delete/'.$item->id . URL::query())?>" class='btn btn-inverse' title='<?php echo __('Delete')?>'><i class="glyphicon glyphicon-trash"></i></a>
+            <?if(!$item->$moderate_field):?><a href="<?php echo URL::site( $moderate_uri.'/check/'.$item->id . URL::query())?>" class='btn btn-inverse' title='<?php echo __('Moderate')?>'><i class="glyphicon glyphicon-check"></i></a><?endif?>
             </div>
         </td>
         <td><input type="checkbox" name="operate[]" value="<?php echo $item->id?>"></td>

@@ -97,7 +97,7 @@ class Controller_Admin_Pages extends Controller_System_Admin
             $this->go("admin/pages");
         }
         if(isset($_POST['submit'])){
-            $post = Arr::extract($_POST, array('title', 'alias', 'text', 'status'));
+            $post = Arr::extract($_POST, array('name', 'alias', 'text', 'status', 'title', 'description', 'keywords'));
             $model->values($post);
             try{
                 $model->save();

@@ -5,22 +5,22 @@
     <title><?php echo $title; ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <?php foreach($styles as $style): ?>
-    <?= HTML::style($style); ?>
+    <?php echo  HTML::style($style); ?>
     <?php endforeach; ?>
     <?php foreach($scripts as $script): ?>
-    <?= HTML::script($script); ?>
+    <?php echo  HTML::script($script); ?>
     <?php endforeach; ?>
 </head>
 <body>
 <div id="wrapper">
-    <div class="loading" id="loading"><?=__('Loading')?>...</div>
+    <div class="loading" id="loading"><?php echo __('Loading')?>...</div>
     <div class="container">
-        <?= $menu ?>
+        <?php echo  $menu ?>
 
-        <?if(isset($submenu)):?><?= $submenu ?><?endif?>
+        <?if(isset($submenu)):?><?php echo  $submenu ?><?endif?>
 
-        <?= Flash::render() ?>
-        <?= $content?>
+        <?php echo  Flash::render() ?>
+        <?php echo  $content?>
 
     </div>
     <div id="push"></div>

@@ -121,14 +121,21 @@ class Controller_Admin_Crud extends Controller_System_Admin{
      *       'label'=>'Contains',
      *       'oper'=>'like',
      *   ),
+     * types: digit, text, checkkbox, select
      * @var array
      */
-    protected $_sort_fields = array();
-    protected $_sort_values;
+    protected $_filter_fields = array();
+    protected $_filter_values;
+
+    /**
+     * Fields that might be sortable in list
+     * @var array
+     */
+    protected $_sortable_fields = array();
 
     protected $_index_field = 'id';
-    protected $_ordeby_field = 'id';
-    protected $_ordeby_direction = 'DESC';
+    protected $_orderby_field = 'id';
+    protected $_orderby_direction = 'DESC';
 
     protected $_setorder_field;
     protected $_model_name;
@@ -150,13 +157,26 @@ class Controller_Admin_Crud extends Controller_System_Admin{
      */
     protected $_multi_operations = array();
 
+    /**
+     * Items container
+     * @var array
+     */
+    protected $items = array();
+
     public function before(){
         $this->skip_auto_content_apply = Arr::merge($this->crud_render_actions, $this->skip_auto_content_apply);
 
         parent::before();
-        /* getting sorting values */
-        if(count($this->_sort_fields))
-            $this->_sort_values = Arr::extract($this->request->query(), array_keys($this->_sort_fields));
+        /* getting sort field and direction */
+        $this->_orderby_field = Arr::get($_GET, 'orderby', $this->_orderby_field);
+        $this->_orderby_direction= Arr::get($_GET, 'orderdir', $this->_orderby_direction);
+
+        /* getting filter values */
+        if(count($this->_filter_fields))
+            $this->_filter_values = Arr::extract($this->request->query(), array_keys($this->_filter_fields));
+        foreach($this->_filter_values as $_sort_key=>$_sort_val)
+            if( in_array($this->_filter_fields[$_sort_key]['type'], array('text', 'digit')) )
+                $this->_filter_fields[$_sort_key]['data'] = $this->_filter_values[$_sort_key];
 
         /* Getting controller main route */
         $this->_crud_uri = $this->_calculateRoute();
@@ -207,22 +227,23 @@ class Controller_Admin_Crud extends Controller_System_Admin{
             )
         );
         /* Init Items query */
-        $items = ORM::factory($this->_model_name)
+        $this->items = ORM::factory($this->_model_name)
             ->limit($pagination->items_per_page)
             ->offset($pagination->offset);
 
-        $this->_applyQueryFilters($items);
-        $items = $items->order_by($this->_ordeby_field, $this->_ordeby_direction)->find_all();
+        $this->_applyQueryFilters($this->items);
+        $this->items = $this->items->order_by($this->_orderby_field, $this->_orderby_direction)->find_all();
 
         $this->template->content
             ->set('pagination',$pagination)
-            ->set('items',$items)
+            ->set('items',$this->items)
             ->set('list_fields',$this->list_fields)
             ->set('crud_uri',$this->_crud_uri)
             ->set('crud_name',$this->_crud_name)
             ->set('item_name',$this->_item_name)
             ->set('labels',$this->_getModelLabels())
-            ->set('sort_fields',$this->_sort_fields)
+            ->set('filter_fields',$this->_filter_fields)
+            ->set('sort_fields',$this->_sortable_fields)
             ->set('order_field',$this->_setorder_field)
             ->set('advanced_actions',$this->_advanced_list_actions)
             ->set('multi_operations',$this->_multi_operations)
@@ -237,7 +258,8 @@ class Controller_Admin_Crud extends Controller_System_Admin{
         $orders = Arr::get($_POST, 'orders', array());
         foreach($orders as $item_id=>$order)
             $item = ORM::factory($this->_model_name, $item_id)->set($this->_setorder_field,  $order)->save();
-        $this->go($this->_crud_uri. URL::query());
+//        $this->go($this->_crud_uri. URL::query());
+        $this->redirect( Request::$current->referrer() );
     }
 
     /**
@@ -254,7 +276,8 @@ class Controller_Admin_Crud extends Controller_System_Admin{
                     $this->{'_multi_'.$_operation}($ids);
                 }
         }
-        $this->redirect($this->_crud_uri . URL::query());
+//        $this->redirect($this->_crud_uri . URL::query());
+        $this->redirect( Request::$current->referrer() );
     }
 
     /**
@@ -287,7 +310,8 @@ class Controller_Admin_Crud extends Controller_System_Admin{
             $model->delete();
             Flash::success('Record was successfully deleted');
         }
-        $this->redirect($this->_crud_uri . URL::query());
+        $this->redirect( Request::$current->referrer() );
+//        $this->redirect($this->_crud_uri . URL::query());
     }
 
     /**
@@ -307,7 +331,8 @@ class Controller_Admin_Crud extends Controller_System_Admin{
             try{
                 $this->_saveModel($model);
                 Flash::success('Record was successfully saved');
-                $this->go($this->_crud_uri . URL::query());
+//                $this->go($this->_crud_uri . URL::query());
+                $this->redirect( Arr::get($_POST, 'refrer', $this->_crud_uri . URL::query()));
             }
             catch(ORM_Validation_Exception $e){
                     $errors = $e->errors('validation');
@@ -380,13 +405,13 @@ class Controller_Admin_Crud extends Controller_System_Admin{
      * @param ORM $model
      */
     protected function _applyQueryFilters(ORM &$model){
-        if(count($this->_sort_fields) && count($this->_sort_values))
-            foreach($this->_sort_values as $k=>$v)
+        if(count($this->_filter_fields) && count($this->_filter_values))
+            foreach($this->_filter_values as $k=>$v)
                 if($v)
                     $model->where(
                         $k ,
-                        isset($this->_sort_fields[$k]['oper']) ? $this->_sort_fields[$k]['oper'] : '=',
-                        isset($this->_sort_fields[$k]['oper']) && strtolower($this->_sort_fields[$k]['oper']) == 'like' ? "%{$v}%" : $v
+                        isset($this->_filter_fields[$k]['oper']) ? $this->_filter_fields[$k]['oper'] : '=',
+                        isset($this->_filter_fields[$k]['oper']) && strtolower($this->_filter_fields[$k]['oper']) == 'like' ? "%{$v}%" : $v
                     );
     }
 }

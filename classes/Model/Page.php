@@ -11,7 +11,7 @@ class Model_Page extends ORM{
 
     public function rules(){
         return array(
-            'title' => array(
+            'name' => array(
                 array('not_empty'),
                 array('min_length', array('value:',3)),
             ),
@@ -27,10 +27,13 @@ class Model_Page extends ORM{
     public function labels(){
         return array(
             'id' => __('Id'),
-            'title' => __('Title'),
+            'name' => __('Name'),
             'alias' => __('Alias'),
             'text' => __('Text'),
             'status' => __('Status'),
+            'title' => 'Meta Title',
+            'description' => 'Meta Description',
+            'keywords' => 'Meta Keywords',
         );
     }
 
@@ -60,5 +63,30 @@ class Model_Page extends ORM{
             'page' => $this->alias,
         ));
         return $uri;
+    }
+
+    /* Meta tags checkers an getters */
+    public function haveTitle(){
+        return !empty($this->title);
+    }
+
+    public function haveDescription(){
+        return !empty($this->description);
+    }
+
+    public function haveKeywords(){
+        return !empty($this->keywords);
+    }
+
+    public function getTitle(){
+        return $this->title;
+    }
+
+    public function getDescription(){
+        return $this->description;
+    }
+
+    public function getKeywords(){
+        return $this->keywords;
     }
 }

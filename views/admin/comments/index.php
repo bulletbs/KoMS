@@ -1,13 +1,13 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 <h2><?php echo __('Comments')?></h2>
 
-<?= $pagination->render()?>
+<?php echo  $pagination->render()?>
 
-<?=Form::open(null, array('method'=>'get', 'class'=>'well form-inline', 'enctype'=>'multipart/form-data', 'id'=>'sortForm'))?>
-    <?= Form::label('comment_sort', __('Show comments'), array('class'=>'control-label')) ?>
-    <?= Form::select('comment_sort', $sorts, $comment_sort)?>
-    <?= Form::submit('submit',__('Filter'),array('class'=>'btn'))?>
-<?=Form::close()?>
+<?php echo Form::open(null, array('method'=>'get', 'class'=>'well form-inline', 'enctype'=>'multipart/form-data', 'id'=>'sortForm'))?>
+    <?php echo  Form::label('comment_sort', __('Show comments'), array('class'=>'control-label')) ?>
+    <?php echo  Form::select('comment_sort', $sorts, $comment_sort)?>
+    <?php echo  Form::submit('submit',__('Filter'),array('class'=>'btn'))?>
+<?php echo Form::close()?>
 
 <?php echo Form::open(URL::site( 'admin/comments/multi'))?>
 <?if(count($comments) || !$comment_sort):?>
@@ -35,13 +35,13 @@
 <?endif;?>
 <? foreach($comments as $comment): ?>
     <tr>
-        <td><?=$comment->id?></td>
-        <td><?= $comment->getUri() ? HTML::anchor($comment->getUri(), $comment->content, array('target'=>'_blank')) : $comment->content ?></td>
+        <td><?php echo $comment->id?></td>
+        <td><?php echo  $comment->getUri() ? HTML::anchor($comment->getUri(), $comment->content, array('target'=>'_blank')) : $comment->content ?></td>
         <td style="width: 150px;">
             <div class="btn-group">
-            <a href="<?=URL::site( 'admin/comments/edit/'.$comment->id . URL::query())?>" class='btn btn-inverse' title='<?=__('Edit')?>'><i class="glyphicon glyphicon-edit"></i></a>
-            <a data-bb="confirm" href="<?=URL::site( 'admin/comments/delete/'.$comment->id . URL::query())?>" class='btn btn-inverse' title='<?=__('Delete')?>'><i class="glyphicon glyphicon-trash"></i></a>
-            <?if(!$comment->moderated):?><a href="<?=URL::site( 'admin/comments/check/'.$comment->id . URL::query())?>" class='btn btn-inverse' title='<?=__('Moderate')?>'><i class="glyphicon glyphicon-check"></i></a><?endif?>
+            <a href="<?php echo URL::site( 'admin/comments/edit/'.$comment->id . URL::query())?>" class='btn btn-inverse' title='<?php echo __('Edit')?>'><i class="glyphicon glyphicon-edit"></i></a>
+            <a data-bb="confirm" href="<?php echo URL::site( 'admin/comments/delete/'.$comment->id . URL::query())?>" class='btn btn-inverse' title='<?php echo __('Delete')?>'><i class="glyphicon glyphicon-trash"></i></a>
+            <?if(!$comment->moderated):?><a href="<?php echo URL::site( 'admin/comments/check/'.$comment->id . URL::query())?>" class='btn btn-inverse' title='<?php echo __('Moderate')?>'><i class="glyphicon glyphicon-check"></i></a><?endif?>
             </div>
         </td>
         <td><input type="checkbox" name="operate[]" value="<?php echo $comment->id?>"></td>
