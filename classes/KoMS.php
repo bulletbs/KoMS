@@ -16,4 +16,13 @@ class KoMS{
             $labels[$_id] = __($_val);
         return $labels;
     }
+
+    /**
+     * Check if string is serialized data
+     * @param $data
+     * @return bool
+     */
+    public static function isSerialized($data){
+        return (is_string($data) && preg_match("#^((N;)|((a|O|s):[0-9]+:.*[;}])|((b|i|d):[0-9.E-]+;))$#um", $data));
+    }
 }

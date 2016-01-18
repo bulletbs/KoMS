@@ -55,8 +55,12 @@ class Controller_System_Security extends Controller_System_Controller
         parent::before();
 
         $this->logged_in = Auth::instance()->logged_in();
-        if($this->logged_in)
-            $this->current_user = Auth::instance()->get_user();
+        if($this->logged_in){
+            if(!is_null($subuser = Session::instance()->get(Model_User::SESSION_SUBUSER_NAME)))
+                $this->current_user = ORM::factory('User', $subuser);
+            else
+                $this->current_user = Auth::instance()->get_user();
+        }
 
 //        if($_SERVER['REMOTE_ADDR'] == '109.108.68.2'){
 //            echo Debug::vars($this->request->action());

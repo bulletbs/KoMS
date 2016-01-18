@@ -49,7 +49,7 @@ class Widget  {
      * @param   array   Массив передаваемых параметров
      * @param   string  Название роута данного виджета
      */
-    public static function load($widget_name, array $params = NULL)
+    public static function load($widget_name, array $params = array())
     {
         $widget = new Widget($widget_name, $params);
         return $widget->render();

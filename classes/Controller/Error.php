@@ -74,6 +74,20 @@ class Controller_Error extends Controller_System_Page
     }
 
     /**
+     * Serves HTTP 410 error page
+     */
+    public function action_410()
+    {
+        $this->template->description = __('Page expired');
+        $this->template->keywords = __('expired, 410');
+        $this->template->page_title = __('The requested page is no longer available');
+
+        $this->template->content = View::factory('error/410')
+            ->set('page_title', __('Page expired'))
+            ->set('error_message', $this->_message);
+    }
+
+    /**
      * Serves HTTP 500 error page
      */
     public function action_500()

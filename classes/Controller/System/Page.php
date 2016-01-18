@@ -26,7 +26,7 @@ class Controller_System_Page extends Controller_System_Template
              * only for Initial request OR error controller
              */
             if(Request::$current->is_initial() || $this->request->controller()=='Error'){
-                $this->breadcrumbs = Breadcrumbs::factory()->add('Главная', '/', 0);
+                $this->breadcrumbs = Breadcrumbs::factory()->add($this->config['breadcrumb_root'], '/', 0);
                 $this->styles = Arr::merge($this->styles, $this->config->styles);
                 $this->scripts = Arr::merge($this->config->scripts, $this->scripts);
             }

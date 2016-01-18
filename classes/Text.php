@@ -51,4 +51,24 @@ class Text extends Kohana_Text {
         else
            return mb_ucfirst($str, $encoding);
     }
+
+    /**
+     * Trim all space characters  at start and end of string
+     * and replace duplicating space characters with once
+     * @param $value
+     * @return mixed
+     */
+    public static function trimall($value){
+        return preg_replace('/(\s){2,}/', '$1', trim($value));
+    }
+
+    /**
+     * Trim all space characters  at start and end of string
+     * and replace duplicating space characters with once
+     * @param $value
+     * @return mixed
+     */
+    public static function stripNL($value){
+        return preg_replace('/[\r\n]+/', ' ', $value);
+    }
 }

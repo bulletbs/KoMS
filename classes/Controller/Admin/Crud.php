@@ -172,11 +172,12 @@ class Controller_Admin_Crud extends Controller_System_Admin{
         $this->_orderby_direction= Arr::get($_GET, 'orderdir', $this->_orderby_direction);
 
         /* getting filter values */
-        if(count($this->_filter_fields))
+        if(count($this->_filter_fields)){
             $this->_filter_values = Arr::extract($this->request->query(), array_keys($this->_filter_fields));
-        foreach($this->_filter_values as $_sort_key=>$_sort_val)
-            if( in_array($this->_filter_fields[$_sort_key]['type'], array('text', 'digit')) )
-                $this->_filter_fields[$_sort_key]['data'] = $this->_filter_values[$_sort_key];
+            foreach($this->_filter_values as $_sort_key=>$_sort_val)
+                if( in_array($this->_filter_fields[$_sort_key]['type'], array('text', 'digit')) )
+                    $this->_filter_fields[$_sort_key]['data'] = $this->_filter_values[$_sort_key];
+        }
 
         /* Getting controller main route */
         $this->_crud_uri = $this->_calculateRoute();
