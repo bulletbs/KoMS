@@ -3,7 +3,7 @@
  * Класс основного шаблона приложения, используется для отображения Шаблонов
  */
 
-class Controller_System_Template extends Controller_System_Security
+abstract class Controller_System_Template extends Controller_System_Security
 {
 
     /**
@@ -34,6 +34,9 @@ class Controller_System_Template extends Controller_System_Security
     public $scripts = array();
     public $styles = array();
 
+    public $mobile_scripts = array();
+    public $mobile_styles = array();
+
     public $metatags = array();
 
     /**
@@ -63,6 +66,10 @@ class Controller_System_Template extends Controller_System_Security
 
         parent::before();
 
+        /* Mobile template handling */
+        if($this->is_mobile)
+            $this->template = 'mobile/layout';
+
         if ($this->auto_render === TRUE) {
             // Если AJAX запрос, то происходит подмена шаблона, чтобы не выводить лишние данные
             // Выводится только блок с контентом
@@ -77,12 +84,10 @@ class Controller_System_Template extends Controller_System_Security
 
             // В этой переменной будет инициализирован шаблон блока с контентом
             $this->template->content = '';
-            $this->_setTemplateAssets();
-            $this->_setTemplateMeta();
 
             /* выбор шаблона для рендера */
             if(!in_array($this->request->action(), $this->skip_auto_content_apply))
-                $this->getContentTemplate($this->content_template);
+                $this->template->content = $this->getContentTemplate($this->content_template);
         }
     }
 
@@ -90,12 +95,13 @@ class Controller_System_Template extends Controller_System_Security
     {
         parent::after();
         if ($this->auto_render === TRUE && $this->request->is_ajax() !== TRUE ) {
-            $this->template->styles = array_merge($this->template->styles, $this->styles);
-            $this->template->scripts = array_merge($this->template->scripts, $this->scripts);
+            $this->_setTemplateAssets();
+            $this->_setTemplateMeta();
             $this->template->metatags = $this->metatags;
 
             $this->template->logged_in = $this->logged_in;
             $this->template->current_user = $this->current_user;
+            $this->template->project_host = $this->config['project']['host'];
 
             $this->response->body($this->template->render());
         }
@@ -121,24 +127,30 @@ class Controller_System_Template extends Controller_System_Security
     /**
      * Looking for content template (auto_render = TRUE)
      * @param null $path
+     * @return View
      * @throws HTTP_Exception_404
      */
-    public function getContentTemplate($path = null){
-        if(is_null($path)) {
-            if ($this->auto_render === TRUE && $this->request->is_ajax() !== TRUE) {
-                if ( Kohana::find_file('views', $this->get_action_view()) )
-                {
-                    $this->template->content = View::factory($this->get_action_view());
-                }
-                else
-                {
-                    throw new HTTP_Exception_404(__('The requested page not found'));
-                }
+    public function getContentTemplate($path = NULL){
+        $content = View::factory();
+        if ($this->auto_render === TRUE && ($this->request->is_ajax() !== TRUE || !is_null($path))) {
+            if(is_null($path))
+                $path = $this->get_action_view();
+
+            /* Looking for mobile version */
+            if($this->is_mobile && Kohana::find_file('views', 'mobile/'.$path)){
+                $content = View::factory('mobile/'.$path);
+            }
+            /* Looking for pc version */
+            elseif ( Kohana::find_file('views', $path) )
+            {
+                $content = View::factory($path);
+            }
+            else
+            {
+                throw new HTTP_Exception_404(__('The requested page not found'));
             }
         }
-        else{
-            $this->template->content = View::factory($path);
-        }
+        return $content;
     }
 
     /**
@@ -164,9 +176,18 @@ class Controller_System_Template extends Controller_System_Security
      * Set assets to main template
      */
     protected function _setTemplateAssets(){
-        $this->template->styles = array();
-        $this->template->scripts = array();
-        $this->template->logged_in = false;
+        if($this->is_mobile){
+            $this->template->styles = $this->config['mobile_styles'];
+            $this->template->scripts = $this->config['mobile_scripts'];
+            $this->template->styles = array_merge($this->template->styles, $this->mobile_styles);
+            $this->template->scripts = array_merge($this->template->scripts, $this->mobile_scripts);
+        }
+        else{
+            $this->template->styles = $this->config['styles'];
+            $this->template->scripts = $this->config['scripts'];
+            $this->template->styles = array_merge($this->template->styles, $this->styles);
+            $this->template->scripts = array_merge($this->template->scripts, $this->scripts);
+        }
     }
 
     /**
@@ -174,13 +195,19 @@ class Controller_System_Template extends Controller_System_Security
      */
     protected function _setTemplateMeta(){
         $this->template->project_name = $this->config['project']['name'] ;
-        $this->template->title = $this->config->view['title'] ;
-        $this->template->keywords = $this->config->view['keywords'];
-        $this->template->description = $this->config->view['description'];
+        $this->template->title = $this->config['view']['title'] ;
+        $this->template->keywords = $this->config['view']['keywords'];
+        $this->template->description = $this->config['view']['description'];
     }
 
     
     public function add_meta_content(Array $parameters = array()){
         $this->metatags[] = $parameters;
+    }
+
+    public function getCacheName($name){
+        if($this->is_mobile)
+            $name .= '_mobile';
+        return $name;
     }
 }

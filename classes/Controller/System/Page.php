@@ -27,8 +27,6 @@ class Controller_System_Page extends Controller_System_Template
              */
             if(Request::$current->is_initial() || $this->request->controller()=='Error'){
                 $this->breadcrumbs = Breadcrumbs::factory()->add($this->config['breadcrumb_root'], '/', 0);
-                $this->styles = Arr::merge($this->styles, $this->config->styles);
-                $this->scripts = Arr::merge($this->config->scripts, $this->scripts);
             }
         }
     }
@@ -66,5 +64,15 @@ class Controller_System_Page extends Controller_System_Template
      */
     public function add_page_header($content){
         $this->headers[] = $content;
+    }
+
+    /**
+     * Set META data to main template
+     */
+    protected function _setTemplateMeta(){
+        $this->template->project_name = $this->config['project']['name'] ;
+        $this->template->title = !empty($this->title) ? $this->title : $this->config['view']['title'] ;
+        $this->template->keywords = !empty($this->keywords) ? $this->keywords : $this->config['view']['keywords'];
+        $this->template->description = !empty($this->description) ? $this->description : $this->config['view']['description'];
     }
 }

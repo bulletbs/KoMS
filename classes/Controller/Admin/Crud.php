@@ -207,10 +207,10 @@ class Controller_Admin_Crud extends Controller_System_Admin{
      * List items
      */
     public function action_index(){
-        $this->template->scripts[] = "media/libs/bootstrap/js/bootbox.min.js";
-        $this->template->scripts[] = "media/libs/bootstrap/js/bbox_".I18n::$lang.".js";
+        $this->scripts[] = "media/libs/bootstrap/js/bootbox.min.js";
+        $this->scripts[] = "media/libs/bootstrap/js/bbox_".I18n::$lang.".js";
         if(count($this->_multi_operations))
-            $this->template->scripts[] = "media/js/admin/check_all.js";
+            $this->scripts[] = "media/js/admin/check_all.js";
 
         $count = ORM::factory($this->_model_name);
         $this->_applyQueryFilters($count);
@@ -293,9 +293,9 @@ class Controller_Admin_Crud extends Controller_System_Admin{
      * Edit item
      */
     public function action_edit(){
-        $this->template->styles[] = "media/libs/bootstrap/css/bootstrap-datetimepicker.min.css";
-        $this->template->scripts[] = "media/libs/moment/moment.min.js";
-        $this->template->scripts[] = "media/libs/bootstrap/js/bootstrap-datetimepicker.min.js";
+        $this->styles[] = "media/libs/bootstrap/css/bootstrap-datetimepicker.min.css";
+        $this->scripts[] = "media/libs/moment/moment.min.js";
+        $this->scripts[] = "media/libs/bootstrap/js/bootstrap-datetimepicker.min.js";
 
         $id = $this->request->param($this->_index_field);
         $model = $this->_loadModel($id);

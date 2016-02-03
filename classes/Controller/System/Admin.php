@@ -17,7 +17,6 @@ class Controller_System_Admin extends Controller_System_Template
     public $auto_render = TRUE;
     public $skip_auto_content_apply = array();
 
-
     /**
      * Need to be authenticated admin role, to access the controller
      * @var array
@@ -32,28 +31,30 @@ class Controller_System_Admin extends Controller_System_Template
 
     public function before()
     {
+        $this->allow_mobile = FALSE;
         parent::before();
 
         if ($this->auto_render === TRUE) {
+
+            $this->styles[] = 'media/css/admin.css';
+            $this->styles[] = 'media/libs/bootstrap/css/bootstrap.min.css';
+            $this->styles[] = 'media/libs/bootstrap/css/bootstrap-responsive.min.css';
+
+            $this->scripts[] = 'media/libs/jquery-1.11.1.min.js';
+            $this->scripts[] = 'media/libs/bootstrap/js/bootstrap.min.js';
+
             /* Widgets */
             $this->template->menu = Widget::factory('adminmainmenu')->render();
-
-            $this->template->styles[] = 'media/css/admin.css';
-            $this->template->styles[] = 'media/libs/bootstrap/css/bootstrap.min.css';
-            $this->template->styles[] = 'media/libs/bootstrap/css/bootstrap-responsive.min.css';
-
-            $this->template->scripts[] = 'media/libs/jquery-1.11.1.min.js';
-            $this->template->scripts[] = 'media/libs/bootstrap/js/bootstrap.min.js';
-
-            /* META */
-            $this->title = Kohana::$config->load('admin')->title ;
-            $this->description = Kohana::$config->load('admin')->description;
         }
     }
 
     public function after()
     {
         if ($this->auto_render === TRUE) {
+
+            /* META */
+//            $this->title = Kohana::$config->load('admin')->title ;
+//            $this->description = Kohana::$config->load('admin')->description;
             $this->template->title = $this->title;
             $this->template->description = $this->description;
         }

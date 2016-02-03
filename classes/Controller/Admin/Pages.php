@@ -18,8 +18,8 @@ class Controller_Admin_Pages extends Controller_System_Admin
      * List items
      */
     public function action_index(){
-        $this->template->scripts[] = "media/libs/bootstrap/js/bootbox.min.js";
-        $this->template->scripts[] = "media/libs/bootstrap/js/bbox_".I18n::$lang.".js";
+        $this->scripts[] = "media/libs/bootstrap/js/bootbox.min.js";
+        $this->scripts[] = "media/libs/bootstrap/js/bbox_".I18n::$lang.".js";
 
         $count = ORM::factory('Page')->count_all();
         $pagination = Pagination::factory(
