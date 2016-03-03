@@ -9,14 +9,6 @@ return array(
     'Page not found' => 'Страница не найдена',
     'The requested page not found' => 'Запрошенная Вами страница не найдена.<br> Возможно, мы удалили или переместили ее.<br> Возможно, вы пришли по устаревшей ссылке или неверно ввели адрес.',
 
-    /* User module pages and widgets */
-    'Welcome' => 'Вы вошли как',
-    'Log in' => 'Вход',
-    'Logout' => 'Выход',
-    'Register' => 'Регистрация',
-    'Last visit' => 'Последний вход',
-    'Admin panel' => 'Администраторская',
-
     /* Admin Menu translates */
     'Backend' => 'KoMS',
     'Home' => 'Главная',
@@ -98,5 +90,5 @@ return array(
     ':field must be within the range of :param2 to :param3'=> 'Поле «:field» должно находиться между :param2 и :param3',
     ':field does not match the required format'            => 'Поле «:field» не соответствует требуемому формату',
     ':field must be a url'                                 => 'Поле «:field» должно быть URL-адресом',
-    ':field must be unique (same value exists)'            => 'Поле «:field» должно быть уникальным (такое значение уже существует)',
+    ':field must be unique (same value exists)'            => 'Указанное «:field» уже зарегистрировано',
 );

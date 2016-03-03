@@ -20,11 +20,12 @@ class Controller_Widgets_Adminmainmenu extends Controller_System_Widgets {
 //                'icon'=>'calendar',
 //                'label'=>__('News'),
 //            ),
+            array(
+                'controller'=>'catalog',
+                'icon'=>'briefcase',
+                'label'=>__('Site Catalog'),
+            ),
 //            array(
-//                'controller'=>'catalog',
-//                'icon'=>'briefcase',
-//                'label'=>__('Site Catalog'),
-//            ),ray(
 //                'controller'=>'news',
 //                'icon'=>'calendar',
 //                'label'=>__('News'),

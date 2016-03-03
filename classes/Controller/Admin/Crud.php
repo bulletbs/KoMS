@@ -394,6 +394,7 @@ class Controller_Admin_Crud extends Controller_System_Admin{
     protected function _calculateRoute($params = array()){
         $route_params = array(
             'controller'=>lcfirst($this->request->controller()),
+            'action'=>NULL,
             'id'=>NULL,
         );
         $route_params = Arr::overwrite($route_params, $params);

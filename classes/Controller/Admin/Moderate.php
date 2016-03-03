@@ -51,6 +51,7 @@ class Controller_Admin_Moderate extends Controller_System_Admin{
 
         $route_params = array(
             'controller'=>lcfirst($this->request->controller()),
+            'action'=>NULL,
             'id'=>NULL,
         );
         $this->_moderate_uri = Route::get('admin')->uri($route_params);
@@ -122,8 +123,9 @@ class Controller_Admin_Moderate extends Controller_System_Admin{
     public function action_check(){
         $model = ORM::factory($this->model_name, $this->request->param('id'));
         if($model->loaded() && !$model->{$this->moderate_field}){
-            $model->{$this->moderate_field} = self::IS_MODERATED;
-            $model->update();
+//            $model->{$this->moderate_field} = self::IS_MODERATED;
+//            $model->update();
+            $this->_setModerated(array($model->id));
             Flash::success(__('Item #:id was successfully moderated', array(':id' => $model->id)));
         }
         $this->redirect($this->_moderate_uri . URL::query());

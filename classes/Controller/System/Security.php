@@ -43,7 +43,7 @@ class Controller_System_Security extends Controller_System_Controller
      * Default login form action
      * @var string
      */
-    public $login_action = 'login';
+    public $login_action = 'enter';
 
     /**
      * Проверяем права на доступ к текущей странице
@@ -62,16 +62,10 @@ class Controller_System_Security extends Controller_System_Controller
                 $this->current_user = Auth::instance()->get_user();
         }
 
-//        if($_SERVER['REMOTE_ADDR'] == '109.108.68.2'){
-//            echo Debug::vars($this->request->action());
-//            echo Debug::vars(Auth::instance()->logged_in($this->secure_actions[$this->request->action()]));
-//            die();
-//        }
-
         /*
          * Checks role access to controller
          */
-        if($this->auth_required && !Auth::instance()->logged_in($this->auth_required)){
+        if(!$this->passAuth()){
             $uri = Route::url($this->login_route, array(
                 'action' => $this->login_action,
             ));
@@ -82,11 +76,7 @@ class Controller_System_Security extends Controller_System_Controller
         /*
          * role access to action
          */
-        elseif (
-            is_array($this->secure_actions)
-            AND array_key_exists($this->request->action(), $this->secure_actions)
-            AND !Auth::instance()->logged_in($this->secure_actions[$this->request->action()])
-        ) {
+        elseif (!$this->passActionAuth()) {
             // Если нет прав и AJAX запрос, то выдаем эксепшен
             if ($this->logged_in OR $this->request->is_ajax()) {
                 throw new HTTP_Exception_403('You don\'t have permissions to acces this page');
@@ -99,5 +89,38 @@ class Controller_System_Security extends Controller_System_Controller
                 die();
             }
         }
+    }
+
+    /**
+     * Check auth_required role and secured actions before it
+     * @return bool
+     */
+    protected function passAuth(){
+        // if action set as secured pass and check at passActionCheck
+        if(is_array($this->secure_actions) && array_key_exists($this->request->action(), $this->secure_actions))
+            return true;
+        // Otherwise check only role
+        elseif($this->auth_required && !Auth::instance()->logged_in($this->auth_required))
+            return false;
+        return true;
+    }
+
+    /**
+     * Check action auth by "secured_actions"
+     * Pass if User have action role
+     * or action role set to NULL (useful for secured controllers)
+     * @return bool
+     */
+    protected function passActionAuth(){
+        if(!is_array($this->secure_actions))
+            return true;
+        if(
+            array_key_exists($this->request->action(), $this->secure_actions)
+            && !Auth::instance()->logged_in($this->secure_actions[$this->request->action()])
+            && !is_null($this->secure_actions[$this->request->action()])
+        )
+            return false;
+        return true;
+
     }
 }

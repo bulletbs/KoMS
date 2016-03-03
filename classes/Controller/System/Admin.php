@@ -27,6 +27,7 @@ class Controller_System_Admin extends Controller_System_Template
      * Route to login form
      * @var string
      */
+    public $login_action = 'login';
     public $login_route = 'auth_admin';
 
     public function before()
