@@ -13,10 +13,10 @@ class Model_Page extends ORM{
         return array(
             'name' => array(
                 array('not_empty'),
-                array('min_length', array('value:',3)),
+                array('min_length', array(':value',3)),
             ),
             'text' => array(
-                array('max_length', array('value:',65525)),
+                array('max_length', array(':value',65525)),
             ),
             'status' => array(
                 array('in_array',array(':value', array('1',null))),
