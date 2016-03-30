@@ -72,7 +72,8 @@
 
         <? elseif($field_data['type'] == 'call_view'): ?>
         <?php echo  View::factory($field_data['data'], array('model'=>$model, 'advanced_data'=>isset($field_data['advanced_data']) ? $field_data['advanced_data'] : ''))->render()?>
-        <? endif;        </div>
+        <? endif; ?>
+    </div>
     <? endif; ?>
     <?endforeach;?>
 </fieldset>
