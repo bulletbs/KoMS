@@ -31,7 +31,7 @@
         <? if($field_data['type'] == 'text'): ?>
         <?php echo  Form::input($field, $model->{$field}, array('class'=>'form-control')) ?>
 
-   else     <? if($field_data['type'] == 'digit'): ?>
+        <? elseif($field_data['type'] == 'digit'): ?>
         <?php echo  Form::input($field, $model->{$field}, array('class'=>'form-control input_short')) ?>
 
         <? elseif($field_data['type'] == 'password'): ?>
