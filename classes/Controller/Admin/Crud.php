@@ -58,6 +58,7 @@ class Controller_Admin_Crud extends Controller_System_Admin{
             array(
                 'action'=>'status', // controller action name
                 'label'=>'On/Off', // title label
+                'target'=>'_blank', // link target
                 'icon'=>array(, // smart icon
                     'field' => '', // indicator field
                     'values' => array( //icon state for values

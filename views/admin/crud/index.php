@@ -41,7 +41,7 @@
             <div class="btn-group">
             <a href="<?php echo URL::site($crud_uri . '/edit/'.$item->id . URL::query())?>" class='btn btn-inverse' title='<?php echo __('Edit')?>'><i class="glyphicon glyphicon-edit icon-white"></i></a>
             <?foreach($advanced_actions as $action):?>
-                <a href="<?php echo URL::site($crud_uri . '/'. $action['action'] .'/'.$item->id . URL::query())?>" class='btn btn-inverse' title='<?php echo __($action['label'])?>'><i class="glyphicon glyphicon-<?php echo is_array($action['icon']) ? $action['icon']['values'][ $item->{$action['icon']['field']} ] : $action['icon']?> icon-white"></i></a>
+                <a href="<?php echo URL::site($crud_uri . '/'. $action['action'] .'/'.$item->id . URL::query())?>" class='btn btn-inverse' title='<?php echo __($action['label'])?>' target="<?php echo Arr::get($action, 'target')?>"><i class="glyphicon glyphicon-<?php echo is_array($action['icon']) ? $action['icon']['values'][ $item->{$action['icon']['field']} ] : $action['icon']?> icon-white"></i></a>
             <?endforeach;?>
             <a data-bb="confirm" href="<?php echo URL::site($crud_uri . '/delete/'.$item->id . URL::query())?>" class='btn btn-inverse' title='<?php echo __('Delete')?>'><i class="icon-white glyphicon glyphicon-trash"></i></a>
             </div>
