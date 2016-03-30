@@ -23,53 +23,56 @@
             </label>
         </div>
     <?else:?>
-        <div <?php echo  isset($field_data['hidden']) ? " hide" : NULL?>" class="form-group" id="control_group_<?php echo $field?>">
-            <?if(isset($labels[$field])):?>
-                <?php echo  Form::label($field, $labels[$field], array('class'=>'control-label', 'id'=>'control_label_'.$field)) ?>
-            <?endif?>
-            <? if($field_data['type'] == 'text'): ?>
-            <?php echo  Form::input($field, $model->{$field}, array('class'=>'form-control')) ?>
+    <div <?php echo  isset($field_data['hidden']) ? " hide" : NULL?>" class="form-group" id="control_group_<?php echo $field?>">
+        <?if(isset($labels[$field])):?>
+            <?php echo  Form::label($field, $labels[$field], array('class'=>'control-label', 'id'=>'control_label_'.$field)) ?>
+        <?endif?>
 
-            <? elseif($field_data['type'] == 'password'): ?>
-            <?php echo  Form::password($field, NULL, array('class'=>'form-control')) ?>
+        <? if($field_data['type'] == 'text'): ?>
+        <?php echo  Form::input($field, $model->{$field}, array('class'=>'form-control')) ?>
 
-            <? elseif($field_data['type'] == 'textarea'): ?>
-            <?php echo  Form::textarea($field, $model->{$field}, array('class'=>'form-control')) ?>
+   else     <? if($field_data['type'] == 'digit'): ?>
+        <?php echo  Form::input($field, $model->{$field}, array('class'=>'form-control input_short')) ?>
 
-            <? elseif($field_data['type'] == 'editor'): ?>
-            <?php echo  Wysiwyg::Ckeditor($field, $model->{$field}, isset($field_data['config']) ? $field_data['config'] : 'admin') ?>
+        <? elseif($field_data['type'] == 'password'): ?>
+        <?php echo  Form::password($field, NULL, array('class'=>'form-control')) ?>
 
-            <? elseif($field_data['type'] == 'tinymce'): ?>
-            <?php echo  Wysiwyg::TinyMCE($field, $model->{$field}, isset($field_data['config']) ? $field_data['config'] : 'admin') ?>
+        <? elseif($field_data['type'] == 'textarea'): ?>
+        <?php echo  Form::textarea($field, $model->{$field}, array('class'=>'form-control')) ?>
 
-            <? elseif($field_data['type'] == 'file'): ?>
-            <? if(isset($field_data['data'])) echo $field_data['data'] . "<br>"?>
-            <?php echo  Form::file($field, array('class'=>'span8')) ?>
+        <? elseif($field_data['type'] == 'editor'): ?>
+        <?php echo  Wysiwyg::Ckeditor($field, $model->{$field}, isset($field_data['config']) ? $field_data['config'] : 'admin') ?>
 
-            <? elseif($field_data['type'] == 'datetime'): ?>
-            <div class='input-group date col-md-8' id='datetimepicker-<?php echo $field?>'>
-                <?php echo  Form::input($field, date("d.m.Y H:i", $model->{$field}), array('class'=>'form-control'))//?>
-                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-            </div>
-            <script type="text/javascript">
-                $(function () {
-                    $('#datetimepicker-<?php echo $field?>').datetimepicker({
-                        'sideBySide' : true,
-                        'format' : 'DD.MM.YYYY HH:mm'
-                    });
-                });
-            </script>
+        <? elseif($field_data['type'] == 'tinymce'): ?>
+        <?php echo  Wysiwyg::TinyMCE($field, $model->{$field}, isset($field_data['config']) ? $field_data['config'] : 'admin') ?>
 
-            <? elseif($field_data['type'] == 'select'): ?>
-            <?php echo  Form::select($field, $field_data['data']['options'], $field_data['data']['selected'], array('id'=>'form_select_'.$field,'class'=>'form-control'))?>
+        <? elseif($field_data['type'] == 'file'): ?>
+        <? if(isset($field_data['data'])) echo $field_data['data'] . "<br>"?>
+        <?php echo  Form::file($field, array('class'=>'span8')) ?>
 
-            <? elseif($field_data['type'] == 'method' && method_exists($model, 'form'.ucfirst($field))): ?>
-            <?php echo  $model->{'form'.ucfirst($field)}() . "<br>" ?>
-
-            <? elseif($field_data['type'] == 'call_view'): ?>
-            <?php echo  View::factory($field_data['data'], array('model'=>$model, 'advanced_data'=>isset($field_data['advanced_data']) ? $field_data['advanced_data'] : ''))->render()?>
-            <? endif; ?>
+        <? elseif($field_data['type'] == 'datetime'): ?>
+        <div class='input-group date col-md-8' id='datetimepicker-<?php echo $field?>'>
+            <?php echo  Form::input($field, date("d.m.Y H:i", $model->{$field}), array('class'=>'form-control'))//?>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
         </div>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker-<?php echo $field?>').datetimepicker({
+                    'sideBySide' : true,
+                    'format' : 'DD.MM.YYYY HH:mm'
+                });
+            });
+        </script>
+
+        <? elseif($field_data['type'] == 'select'): ?>
+        <?php echo  Form::select($field, $field_data['data']['options'], $field_data['data']['selected'], array('id'=>'form_select_'.$field,'class'=>'form-control'))?>
+
+        <? elseif($field_data['type'] == 'method' && method_exists($model, 'form'.ucfirst($field))): ?>
+        <?php echo  $model->{'form'.ucfirst($field)}() . "<br>" ?>
+
+        <? elseif($field_data['type'] == 'call_view'): ?>
+        <?php echo  View::factory($field_data['data'], array('model'=>$model, 'advanced_data'=>isset($field_data['advanced_data']) ? $field_data['advanced_data'] : ''))->render()?>
+        <? endif;        </div>
     <? endif; ?>
     <?endforeach;?>
 </fieldset>
