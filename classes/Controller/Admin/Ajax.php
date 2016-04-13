@@ -7,15 +7,6 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class Controller_Admin_Ajax extends Controller_System_Admin{
+class Controller_Admin_Ajax extends Kohana_Controller_Admin_Ajax{
 
-    public $auto_render = FALSE;
-
-    public function action_index(){
-
-    }
-
-    public function action_ads_filters(){
-        $this->json['status'] = TRUE;
-    }
 }
