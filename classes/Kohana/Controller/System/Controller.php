@@ -14,36 +14,23 @@ class Kohana_Controller_System_Controller extends Kohana_Controller
 
         $this->config = Kohana::$config->load('global')->as_array();
         Cookie::$domain = '.'.$this->config['project']['host'];
-//        if(Request::current()->is_initial())
-//            setcookie('session', '', 1, '/');
 
         /* Init subdomain module */
         $this->subdomain = preg_replace('~\.?'.$this->config['project']['host'].'~', '', $_SERVER['HTTP_HOST']);
-//        Kohana::$base_url = 'http://'. $this->config['project']['host'] .'/';
-//        Request::$subdomain = Request::catch_subdomain();
-
-//        if(in_array($_SERVER['REMOTE_ADDR'], array('109.108.68.2', '89.185.7.172'))){
-//            echo Debug::vars($_COOKIE);
-//            echo Debug::vars($_SESSION);
-//        }
 
         /**
          * Link full/mobile version
          */
         if(FALSE !== ($show = Arr::get($_GET, 'show', FALSE)) && in_array($show, array('full', 'mobile'))){
             if(($this->isMobile() && $show=='mobile') || (!$this->isMobile() && $show=='full'))
-//                Session::instance()->delete('show_version');
                 Cookie::delete('show_version');
             else
-//                Session::instance()->set('show_version', $show);
                 Cookie::set('show_version', $show);
-//            $this->redirect( 'http://'. ($show=='mobile' ? 'm.' : '') . $this->config['project']['host'] );
         }
 
         /**
          * Mobile devices handling
          */
-//        if(FALSE !== ($show = Session::instance()->get('show_version', FALSE))){
         if(FALSE !== ($show = Cookie::get('show_version', FALSE))){
             if($show=='mobile' && $this->subdomain=='')
                 $this->redirect( 'http://m.'. $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
@@ -58,7 +45,6 @@ class Kohana_Controller_System_Controller extends Kohana_Controller
                 $this->showMobileVersion();
             }
             else{
-//                $this->{'show'. ($this->subdomain == 'm' ? 'Mobile' : 'Full') .'Version'}();
                 if($this->subdomain=='m')
                     $this->redirect( 'http://'. $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
                 $this->showFullVersion();
@@ -99,7 +85,6 @@ class Kohana_Controller_System_Controller extends Kohana_Controller
     private function showMobileVersion(){
         $this->is_mobile = TRUE;
         $this->config = Arr::merge($this->config, Kohana::$config->load('mobile')->as_array());
-//        Kohana::$base_url = 'http://m.' . $this->config['project']['host'].'/';
     }
 
     /**
