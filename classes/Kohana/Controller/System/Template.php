@@ -102,6 +102,7 @@ abstract class Kohana_Controller_System_Template extends Controller_System_Secur
             $this->template->logged_in = $this->logged_in;
             $this->template->current_user = $this->current_user;
             $this->template->project_host = $this->config['project']['host'];
+            $this->template->project_name = $this->config['project']['name'];
 
             $this->response->body($this->template->render());
         }
