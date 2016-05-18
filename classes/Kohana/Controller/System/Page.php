@@ -34,14 +34,6 @@ class Kohana_Controller_System_Page extends Controller_System_Template
     public function after()
     {
         if ($this->auto_render === TRUE) {
-            /* Right column */
-            if(!isset($this->template->right_column)){
-                $right = View::factory('global/right_column')
-//                    ->set('most_articles', Request::factory('news/most')->execute())
-                ;
-                $this->template->set('right_column', $right);
-            }
-
             if($this->title)
                 $this->template->title = $this->title;
             if($this->keywords)
