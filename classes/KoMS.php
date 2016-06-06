@@ -25,4 +25,13 @@ class KoMS{
     public static function isSerialized($data){
         return (is_string($data) && preg_match("#^((N;)|((a|O|s):[0-9]+:.*[;}])|((b|i|d):[0-9.E-]+;))$#um", $data));
     }
+
+    /**
+     * Getting configuration instance
+     * @param string $config
+     * @return KoMSConfig
+     */
+    public static function config($config = 'global'){
+        return KoMSConfig::instance($config);
+    }
 }
