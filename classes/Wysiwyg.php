@@ -37,6 +37,7 @@ class Wysiwyg {
         $CKEditor->config['height'] = $config['height'] . 'px';
         $CKEditor->config['width']  = $config['width'] . 'px';
         $CKEditor->config['contentsCss'][] = $url_base . $config['css'];
+        $CKEditor->config['enterMode'] = 'CKEDITOR.ENTER_BR';
 
         if(isset($config['allow_manager']) && $config['allow_manager'] == true){
             $CKEditor->config['filebrowserBrowseUrl']      = $url_base . 'media/libs/ckeditor/ckfinder/ckfinder.html';
