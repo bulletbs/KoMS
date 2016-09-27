@@ -334,7 +334,7 @@ class Kohana_Controller_Admin_Crud extends Controller_System_Admin{
                 $this->_saveModel($model);
                 Flash::success('Record was successfully saved');
 //                $this->go($this->_crud_uri . URL::query());
-                $this->redirect( Arr::get($_POST, 'refrer', $this->_crud_uri . URL::query()));
+                $this->redirect( Arr::get($_POST, 'referer', $this->_crud_uri . URL::query()));
             }
             catch(ORM_Validation_Exception $e){
                     $errors = $e->errors('validation');
