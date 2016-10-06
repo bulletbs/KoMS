@@ -21,7 +21,7 @@
     <tr>
     <?foreach($list_fields as $field):?>
         <th><?if(isset($sort_fields[$field])):?>
-        <a href="<?php echo URL::base().$crud_uri?><?php echo URL::query(array('orderby'=>$field, 'orderdir'=>'DESC'))?>"><span class="glyphicon glyphicon-arrow-up"></span></a><?php echo $labels[$field]?><a href="<?php echo URL::base().$crud_uri?><?php echo URL::query()?>&orderby=<?php echo $field?>&orderdir=ASC"><span class="glyphicon glyphicon-arrow-down"></span></a>
+        <a href="<?php echo URL::base() . $crud_uri . URL::query(array('orderby'=>$field, 'orderdir'=>'DESC'))?>"><span class="glyphicon glyphicon-arrow-up"></span></a><?php echo $labels[$field]?><a href="<?php echo URL::base() . $crud_uri . URL::query(array('orderby'=>$field, 'orderdir'=>'ASC'))?>"><span class="glyphicon glyphicon-arrow-down"></span></a>
         <?else:?><?php echo  $labels[$field]?><?endif?></th>
     <?endforeach;?>
         <th><?php echo __('Operations')?></th>
