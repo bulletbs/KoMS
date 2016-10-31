@@ -71,4 +71,11 @@ class Text extends Kohana_Text {
     public static function stripNL($value){
         return preg_replace('/[\r\n]+/', ' ', $value);
     }
+
+    /**
+     * strip SQL injections
+     */
+    public static function stripSQL(){
+
+    }
 }
