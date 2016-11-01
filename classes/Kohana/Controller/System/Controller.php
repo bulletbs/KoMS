@@ -40,7 +40,8 @@ class Kohana_Controller_System_Controller extends Kohana_Controller
             }
             else{
                 Cookie::set('show_version', $this->isMobile() ? 'mobile' : 'full');
-                $this->redirect( 'http://'. ($this->isMobile() ? 'm.' : '') . $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
+                if(($this->isMobile() && $this->subdomain=='') || (!$this->isMobile() && $this->subdomain=='m'))
+                    $this->redirect( 'http://'. ($this->isMobile() ? 'm.' : '') . $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
             }
         }
         $show_version = !$this->allow_mobile ? 'full' : Cookie::get('show_version', 'full');
