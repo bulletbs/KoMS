@@ -75,7 +75,8 @@ class Text extends Kohana_Text {
     /**
      * strip SQL injections
      */
-    public static function stripSQL(){
-
+    public static function stripSQL($text){
+        $text = preg_replace('~[^\w\d\s\-]+~', '', $text);
+        return $text;
     }
 }

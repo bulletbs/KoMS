@@ -201,11 +201,32 @@ abstract class Kohana_Controller_System_Template extends Controller_System_Secur
         $this->template->description = $this->config['view']['description'];
     }
 
-    
+    /**
+     * Add Meta tag values
+     * @param array $parameters - list of parameters
+     */
     public function add_meta_content(Array $parameters = array()){
         $this->metatags[] = $parameters;
     }
 
+    /**
+     * Replace Meta tag values by other values
+     * @param $key - key for search
+     * @param array $parameters - list of parameters
+     */
+    public function replace_meta_content($key, $parameters = array()){
+        foreach($this->metatags as $tag_id=>$metatag){
+            if($metatag[$key] == $parameters[$key]){
+                $this->metatags[$tag_id] = $parameters;
+            }
+        }
+    }
+
+    /**
+     * Get device cache name
+     * @param $name
+     * @return string
+     */
     public function getCacheName($name){
         if($this->is_mobile)
             $name .= '_mobile';

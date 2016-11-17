@@ -48,6 +48,22 @@ class Kohana_Controller_System_Controller extends Kohana_Controller
         $this->{'show'. ucfirst($show_version) .'Version'}();
     }
 
+    /**
+     * Make own execute actions to catch global Exceptions
+     * @return Response
+     * @throws HTTP_Exception
+     */
+    public function execute()
+    {
+        try{
+            return parent::execute();
+        }
+        catch(Database_Exception $e){
+//            throw HTTP_Exception::factory(500, 'Database error appear while action execution')->request($this->request);
+            throw new HTTP_Exception_500('Database error appear while action execution');
+        }
+    }
+
     public function go($url = NULL, $code = 302)
     {
         $route = array(

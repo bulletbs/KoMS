@@ -2,17 +2,19 @@
 
 class Date extends Kohana_Date{
 
+    static $of_months = array(
+        '', 'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+        'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря');
+    static $months = array(
+        '', 'январь', 'февраль', 'марть', 'апрель', 'май', 'июнь',
+        'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь');
+
     /**
      * Выводит дату
      * @param $timestamp
      * @return bool|string
      */
     public static function smart_date($timestamp) {
-        $monthes = array(
-            '', 'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-            'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
-        );
-
         //Время
 //        $time = ' G:i';
         $time = '';
@@ -32,7 +34,7 @@ class Date extends Kohana_Date{
         }
 
         //Месяца
-        $month = $monthes[date('n',$date)];
+        $month = self::$of_months[date('n',$date)];
 
         //Года
         if(date('Y') != date('Y', $date)) $year = 'Y г.';
@@ -48,11 +50,6 @@ class Date extends Kohana_Date{
      * @return bool|string
      */
     public static function smart_datetime($timestamp) {
-        $monthes = array(
-            '', 'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-            'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
-        );
-
         //Время
         $time = ' G:i';
         $date = $timestamp;
@@ -71,7 +68,7 @@ class Date extends Kohana_Date{
         }
 
         //Месяца
-        $month = $monthes[date('n',$date)];
+        $month = self::$of_months[date('n',$date)];
 
         //Года
         if(date('Y') != date('Y', $date)) $year = 'Y г.';
@@ -79,5 +76,18 @@ class Date extends Kohana_Date{
 
         $result_date = date('j '.$month.' '.$year.$time, $date);
         return $result_date;
+    }
+
+    /**
+     * Возвращает текущий месяц
+     * @param $name_of - месяц в родительском падеже
+     * @param $ucfirst - большая первая буква месяца
+     * @return mixed
+     */
+    public static function currentMonth($name_of = false, $ucfirst = false){
+        $month = $name_of ? self::$of_months[date('m')] : self::$months[date('m')];
+        if($ucfirst)
+            $month = Text::ucfirst($month);
+        return $month;
     }
 }
