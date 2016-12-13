@@ -53,3 +53,4 @@
 </table>
 </div>
 <?if($order_field):?><?php echo  Form::close()?><?endif;?>
+<?php echo  $pagination->render()?>

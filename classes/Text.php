@@ -76,7 +76,7 @@ class Text extends Kohana_Text {
      * strip SQL injections
      */
     public static function stripSQL($text){
-        $text = preg_replace('~[^\w\d\s\-]+~', '', $text);
+        $text = preg_replace('~[^а-яА-Я\w\d\s\-]+~u', '', $text);
         return $text;
     }
 }
