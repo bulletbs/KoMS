@@ -34,4 +34,17 @@ class KoMS{
     public static function config($config = 'global'){
         return KoMSConfig::instance($config);
     }
+
+    /**
+     * Return web protocol of application
+     * @return string
+     */
+    public static function protocol(){
+        if(!isset($_SERVER['SERVER_PORT']))
+            return KoMS::config()->project['protocol'];
+        elseif($_SERVER['SERVER_PORT']==443)
+            return 'https';
+        else
+            return 'http';
+    }
 }

@@ -29,19 +29,19 @@ class Kohana_Controller_System_Controller extends Kohana_Controller
                         $_referer_subdomain = preg_replace('~\.?'.$this->config['project']['host'].'~', '', $_SERVER['HTTP_REFERER']);
                         if($this->subdomain != $_referer_subdomain){
                             Cookie::set('show_version', $this->subdomain=='m' ? 'mobile' : 'full');
-                            $this->redirect( 'http://'. ($this->subdomain=='m' ? 'm.' : '') . $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
+                            $this->redirect( KoMS::protocol().'://'. ($this->subdomain=='m' ? 'm.' : '') . $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
                         }
                     }
                     elseif($show == 'mobile' && $this->subdomain=='')
-                        $this->redirect('http://m.'. $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
+                        $this->redirect(KoMS::protocol().'://m.'. $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
                     elseif($show == 'full' && $this->subdomain=='m')
-                        $this->redirect('http://'. $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
+                        $this->redirect(KoMS::protocol().'://'. $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
                 }
             }
             else{
                 Cookie::set('show_version', $this->isMobile() ? 'mobile' : 'full');
                 if(($this->isMobile() && $this->subdomain=='') || (!$this->isMobile() && $this->subdomain=='m'))
-                    $this->redirect( 'http://'. ($this->isMobile() ? 'm.' : '') . $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
+                    $this->redirect( KoMS::protocol().'://'. ($this->isMobile() ? 'm.' : '') . $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
             }
         }
         $show_version = !$this->allow_mobile ? 'full' : Cookie::get('show_version', 'full');
