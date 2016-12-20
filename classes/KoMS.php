@@ -37,11 +37,14 @@ class KoMS{
 
     /**
      * Return web protocol of application
+     * @param null $config
      * @return string
      */
-    public static function protocol(){
+    public static function protocol($config = NULL){
         if(!isset($_SERVER['SERVER_PORT']))
             return KoMS::config()->project['protocol'];
+        elseif(!is_null($config) && isset(KoMS::config($config)->project['protocol']))
+            return KoMS::config($config)->project['protocol'];
         elseif($_SERVER['SERVER_PORT']==443)
             return 'https';
         else

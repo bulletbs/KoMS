@@ -23,28 +23,29 @@ class Kohana_Controller_System_Controller extends Kohana_Controller
          * Link full/mobile version
          */
          if(Request::current()->is_initial()){
-            if(FALSE !== ($show = Cookie::get('show_version', FALSE))){
+            if(FALSE !== ($show = Session::instance()->get('show_version', FALSE))){
                 if(($show == 'mobile' && $this->subdomain=='') || ($show=='full' && $this->subdomain=='m')){
                     if(!empty($_SERVER['HTTP_REFERER'])){
                         $_referer_subdomain = preg_replace('~\.?'.$this->config['project']['host'].'~', '', $_SERVER['HTTP_REFERER']);
                         if($this->subdomain != $_referer_subdomain){
-                            Cookie::set('show_version', $this->subdomain=='m' ? 'mobile' : 'full');
-                            $this->redirect( KoMS::protocol().'://'. ($this->subdomain=='m' ? 'm.' : '') . $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
+                            Session::instance()->set('show_version', $this->subdomain=='m' ? 'mobile' : 'full');
+                             $this->redirect( KoMS::protocol($this->subdomain=='m' ? 'mobile' : 'global').'://'. ($this->subdomain=='m' ? 'm.' : '') . $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
                         }
                     }
                     elseif($show == 'mobile' && $this->subdomain=='')
-                        $this->redirect(KoMS::protocol().'://m.'. $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
+                        $this->redirect(KoMS::protocol('mobile').'://m.'. $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
                     elseif($show == 'full' && $this->subdomain=='m')
-                        $this->redirect(KoMS::protocol().'://'. $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
+                        $this->redirect(KoMS::protocol('global').'://'. $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
                 }
             }
             else{
-                Cookie::set('show_version', $this->isMobile() ? 'mobile' : 'full');
-                if(($this->isMobile() && $this->subdomain=='') || (!$this->isMobile() && $this->subdomain=='m'))
-                    $this->redirect( KoMS::protocol().'://'. ($this->isMobile() ? 'm.' : '') . $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
+                $ismobile = $this->isMobile();
+                Session::instance()->set('show_version', $ismobile ? 'mobile' : 'full');
+                if(($ismobile && $this->subdomain=='') || (!$ismobile && $this->subdomain=='m'))
+                    $this->redirect( KoMS::protocol($ismobile ? 'mobile' : 'global').'://'. ($ismobile ? 'm.' : '') . $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
             }
         }
-        $show_version = !$this->allow_mobile ? 'full' : Cookie::get('show_version', 'full');
+        $show_version = !$this->allow_mobile ? 'full' : Session::instance()->get('show_version', 'full');
         $this->{'show'. ucfirst($show_version) .'Version'}();
     }
 
