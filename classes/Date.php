@@ -85,7 +85,7 @@ class Date extends Kohana_Date{
      * @return mixed
      */
     public static function currentMonth($name_of = false, $ucfirst = false){
-        $month = $name_of ? self::$of_months[date('m')] : self::$months[date('m')];
+        $month = $name_of ? self::$of_months[(int) date('m')] : self::$months[(int) date('m')];
         if($ucfirst)
             $month = Text::ucfirst($month);
         return $month;
