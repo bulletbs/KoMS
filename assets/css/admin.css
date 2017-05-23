@@ -1,0 +1,108 @@
+/**************
+* LAYOUT
+*/
+html,
+body {
+    height: 100%;
+}
+
+#wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by it's height */
+    margin: 0 auto -55px;
+}
+
+#push {
+    height: 40px;
+}
+#footer {
+    height: 55px;
+    padding: 10px 30px;
+    background-color: #f5f5f5;
+}
+
+/**************
+* TABLES
+*/
+.table td{
+    line-height: 30px;
+}
+
+/**************
+* FORMS
+*/
+.form-signin {
+    max-width: 300px;
+    padding: 19px 29px 29px;
+    margin: 0 auto 20px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+.form-signin input[type="text"],
+.form-signin input[type="password"] {
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 15px;
+    padding: 7px 9px;
+}
+.input_short{
+    width: 60px !important;
+}
+.input_medium{
+    width: 150px !important;
+}
+.input_long{
+    width: 300px !important;
+}
+.sort_hr{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/**************
+* IMAGES
+*/
+.microthumb{
+    width: 50px;
+}
+
+/**************
+* JQUERY
+*/
+.loading{
+    position: fixed;
+    display: none;
+    top: 1px;
+    right: 1px;
+    width: 100px;
+    height: 24px;
+    padding: 10px 10px 10px 35px;
+    font-size: 18px;
+    font-weight: bold;
+    background: url("/media/css/images/loading.gif") no-repeat 10px 10px #dadada;
+}
+#notify{
+    top: 30px;
+    right: 30px;
+}
+#notify .close{
+    margin-left: 15px;
+}
+.the-fieldset {
+    border: 2px groove threedface #444;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+    box-shadow:  0px 0px 0px 0px #000;
+    margin-top: 15px;
+}

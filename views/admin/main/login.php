@@ -28,7 +28,7 @@
                 <legend><?php echo  $title ?> site backend</legend>
 
                 <?if(count($errors)):?>
-                    <div class="alert alert-error">
+                    <div class="alert alert-danger">
                         <a class="close" data-dismiss="alert" href="#">×</a>
                         <?foreach($errors as $err):?>
                             <?echo $err;?><br>

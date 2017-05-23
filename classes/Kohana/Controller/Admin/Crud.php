@@ -66,6 +66,17 @@ class Kohana_Controller_Admin_Crud extends Controller_System_Admin{
                         '1' => 'off',
                     ),
             ),
+            MODAL
+            array(
+                'action' => 'importset',
+                'label' => 'Set import',
+                'icon' => 'import',
+                'parameters' => array(
+                    'data-toggle' => 'modal',
+                    'data-target' => '#modal',
+                    'data-source' => '/admin/catalog/modaltest',
+                )
+            ),
      * );
      *
      * @var array

@@ -22,32 +22,34 @@ class Kohana_Controller_System_Controller extends Kohana_Controller
          * Mobile devices handling
          * Link full/mobile version
          */
-         if(Request::current()->is_initial()){
+         if($this->config['project']['mobile_subdomain'] && Request::current()->is_initial()){
             if(FALSE !== ($show = Session::instance()->get('show_version', FALSE))){
-                if(($show == 'mobile' && $this->subdomain=='') || ($show=='full' && $this->subdomain=='m')){
+                if(($show == 'mobile' && $this->subdomain=='') || ($show=='full' && $this->subdomain==$this->config['project']['mobile_subdomain'])){
                     if(!empty($_SERVER['HTTP_REFERER'])){
                         $_referer_subdomain = preg_replace('~\.?'.$this->config['project']['host'].'~', '', $_SERVER['HTTP_REFERER']);
                         if($this->subdomain != $_referer_subdomain){
-                            Session::instance()->set('show_version', $this->subdomain=='m' ? 'mobile' : 'full');
-                             $this->redirect( KoMS::protocol($this->subdomain=='m' ? 'mobile' : 'global').'://'. ($this->subdomain=='m' ? 'm.' : '') . $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
+                            Session::instance()->set('show_version', $this->subdomain==$this->config['project']['mobile_subdomain'] ? 'mobile' : 'full');
+                            $this->redirect( KoMS::protocol($this->subdomain==$this->config['project']['mobile_subdomain'] ? 'mobile' : 'global').'://'. ($this->subdomain==$this->config['project']['mobile_subdomain'] ? $this->config['project']['mobile_subdomain'].'.' : '') . $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
                         }
                     }
                     elseif($show == 'mobile' && $this->subdomain=='')
-                        $this->redirect(KoMS::protocol('mobile').'://m.'. $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
-                    elseif($show == 'full' && $this->subdomain=='m')
+                        $this->redirect(KoMS::protocol('mobile').'://'.$this->config['project']['mobile_subdomain'].'.'. $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
+                    elseif($show == 'full' && $this->subdomain==$this->config['project']['mobile_subdomain'])
                         $this->redirect(KoMS::protocol('global').'://'. $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
                 }
             }
             else{
                 $ismobile = $this->isMobile();
                 Session::instance()->set('show_version', $ismobile ? 'mobile' : 'full');
-//                if(($ismobile && $this->subdomain=='') || (!$ismobile && $this->subdomain=='m'))
                 if(($ismobile && $this->subdomain==''))
-                    $this->redirect( KoMS::protocol($ismobile ? 'mobile' : 'global').'://'. ($ismobile ? 'm.' : '') . $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
+                    $this->redirect( KoMS::protocol($ismobile ? 'mobile' : 'global').'://'. ($ismobile ? $this->config['project']['mobile_subdomain'].'.' : '') . $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
             }
+             $show_version = !$this->allow_mobile ? 'full' : Session::instance()->get('show_version', 'full');
+             $this->{'show'. ucfirst($show_version) .'Version'}();
         }
-        $show_version = !$this->allow_mobile ? 'full' : Session::instance()->get('show_version', 'full');
-        $this->{'show'. ucfirst($show_version) .'Version'}();
+        else{
+            $this->showFullVersion();
+        }
     }
 
     /**
@@ -61,8 +63,8 @@ class Kohana_Controller_System_Controller extends Kohana_Controller
             return parent::execute();
         }
         catch(Database_Exception $e){
-//            throw HTTP_Exception::factory(500, 'Database error appear while action execution')->request($this->request);
-            throw new HTTP_Exception_500('Database error appear while action execution');
+            $message = Auth::instance()->logged_in('admin') ? $e->getMessage() : 'Database error appear while action execution';
+            throw new HTTP_Exception_500($message);
         }
     }
 

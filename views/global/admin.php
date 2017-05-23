@@ -13,6 +13,8 @@
 </head>
 <body>
 <div id="wrapper">
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="bannerformmodal" aria-hidden="true"></div>
+    <div id="notify" class="notifications top-right"></div>
     <div class="loading" id="loading"><?php echo __('Loading')?>...</div>
     <div class="container">
         <?php echo  $menu ?>

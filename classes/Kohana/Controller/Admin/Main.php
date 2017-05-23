@@ -87,8 +87,8 @@ class Kohana_Controller_Admin_Main extends Controller_System_Admin{
         $this->template->styles = array();
         $this->template->scripts = array();
         $this->template->styles[] = 'media/libs/bootstrap/css/bootstrap.min.css';
-        $this->template->styles[] = 'media/css/admin.css';
-        $this->template->scripts[] = 'media/libs/jquery-1.9.1.min.js';
+        $this->template->styles[] =  'assets/koms/css/admin.css';
+        $this->template->scripts[] = 'media/libs/jquery-1.11.1.min.js';
         $this->template->scripts[] = 'media/libs/bootstrap/js/bootstrap.min.js';
 
         $this->template->title = $this->config['project']['name'];

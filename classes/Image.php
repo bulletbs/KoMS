@@ -99,10 +99,34 @@ abstract class Image extends Kohana_Image{
      * @return bool
      */
     public static function isImage($file){
-        if(is_file($file))
+        if(is_file($file)){
             $info = getimagesize($file);
-        if(isset($info) && $info[2] > 0)
-            return true;
+            if(isset($info) && $info[2] > 0)
+                return true;
+        }
         return false;
+    }
+
+    /**
+     * Check image URL exists
+     * @param $url
+     * @return bool
+     */
+    public static function urlImageExists($url){
+        if(strpos($url,'http://') === false)
+            return false;
+        $headers = @get_headers($url);
+        if(is_array($headers))
+            return strpos($headers[0],'200') !== false;
+    }
+
+    public static function getImageTag($path, $alt= '', $attributes = array()){
+        $base = KoMS::config()->project['protocol'] == 'https' ? '//'.$_SERVER['HTTP_HOST'].'/' : Kohana::$base_url;
+        $attributes['src'] = $base . $path;
+        $attributes['alt'] = $alt;
+        $attributes['title'] = $alt;
+        if($attributes['src'])
+            return "<img ".HTML::attributes($attributes).">";
+        return NULL;
     }
 }

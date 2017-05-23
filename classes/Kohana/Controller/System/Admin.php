@@ -36,13 +36,15 @@ class Kohana_Controller_System_Admin extends Controller_System_Template
         parent::before();
 
         if ($this->auto_render === TRUE) {
-
-            $this->styles[] = 'media/css/admin.css';
             $this->styles[] = 'media/libs/bootstrap/css/bootstrap.min.css';
             $this->styles[] = 'media/libs/bootstrap/css/bootstrap-responsive.min.css';
+            $this->styles[] = 'media/libs/bootstrap-notify-master/css/bootstrap-notify.css';
+            $this->styles[] = 'assets/koms/css/admin.css';
 
             $this->scripts[] = 'media/libs/jquery-1.11.1.min.js';
             $this->scripts[] = 'media/libs/bootstrap/js/bootstrap.min.js';
+            $this->scripts[] = 'media/libs/bootstrap-notify-master/js/bootstrap-notify.js';
+            $this->scripts[] = 'assets/koms/js/modal_handler.js';
 
             /* Widgets */
             $this->template->menu = Widget::factory('adminmainmenu')->render();
