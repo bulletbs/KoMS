@@ -177,6 +177,17 @@ abstract class Kohana_Controller_System_Template extends Controller_System_Secur
      * Set assets to main template
      */
     protected function _setTemplateAssets(){
+        $styles = array_merge($this->config[($this->is_mobile ? 'mobile_': '' ).'styles'], $this->{($this->is_mobile ? 'mobile_': '' ).'styles'});
+        $scripts= array_merge($this->config[($this->is_mobile ? 'mobile_': '' ).'scripts'], $this->{($this->is_mobile ? 'mobile_': '' ).'scripts'});
+        foreach($styles as $_style)
+            AssetsManager::instance()->addStyle($_style);
+        foreach($scripts as $_script)
+            AssetsManager::instance()->addScript($_script);
+        $this->template->styles = AssetsManager::instance()->getStyles();
+        $this->template->scripts = AssetsManager::instance()->getScripts();
+    }
+
+    protected function _setOLDTemplateAssets(){
         if($this->is_mobile){
             $this->template->styles = $this->config['mobile_styles'];
             $this->template->scripts = $this->config['mobile_scripts'];
