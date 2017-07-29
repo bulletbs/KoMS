@@ -91,4 +91,6 @@ return array(
     ':field does not match the required format'            => 'Поле «:field» не соответствует требуемому формату',
     ':field must be a url'                                 => 'Поле «:field» должно быть URL-адресом',
     ':field must be unique (same value exists)'            => 'Указанное «:field» уже зарегистрировано',
+    'Captcha mismatch'                                     => 'Указаные символы не совпадают с изображением',
+    'ReCaptcha mismatch'                                   => 'Подтвердите, что Вы человек',
 );

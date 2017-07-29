@@ -19,12 +19,12 @@ return array(
     'matches'       => ':field must be the same as :param2',
     'min_length'    => ':field must be at least :param2 characters long',
     'max_length'    => ':field must not exceed :param2 characters long',
-    'not_empty'     => ':field must not be empty',
     'numeric'       => ':field must be numeric',
     'phone'         => ':field must be a phone number',
     'range'         => ':field must be within the range of :param2 to :param3',
     'regex'         => ':field does not match the required format',
     'url'           => ':field must be a url',
     'captcha_mismatch'           => 'Captcha mismatch',
+    'recaptcha_mismatch'         => 'ReCaptcha mismatch',
     'unique'           => ':field must be unique (same value exists)',
 );
