@@ -130,8 +130,9 @@ class AssetsManager{
         $path_hash = self::ASSETS_CSS_PATH . md5(implode(',', $this->styles)).'.css';
         if(!file_exists(DOCROOT . $path_hash)) {
             foreach ($this->styles as $_style) {
+	            $_style = $this->cleanFilename($_style);
                 $_rewrited = !file_exists(DOCROOT . $_style) ? $this->applyRewrites($_style) : $_style;
-                $_rewrited = $this->cleanFilename($_rewrited);
+//                $_rewrited = $this->cleanFilename($_rewrited);
                 if (!file_exists(DOCROOT . $_rewrited))
                     continue;
                 $content = file_get_contents(DOCROOT . $_rewrited);
