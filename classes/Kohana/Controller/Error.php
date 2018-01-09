@@ -100,4 +100,18 @@ class Kohana_Controller_Error extends Controller_System_Page
             ->set('error_message', $this->_message)
         ;
     }
+
+    /**
+     * Serves HTTP 200 error page
+     */
+    public function action_200()
+    {
+        $this->description = 'Page error occured';
+        $this->keywords = 'error';
+        $this->title = $this->_message;
+
+        $this->template->content = View::factory('error/200')
+            ->set('message', $this->_message)
+        ;
+    }
 }
