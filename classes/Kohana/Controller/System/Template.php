@@ -227,7 +227,7 @@ abstract class Kohana_Controller_System_Template extends Controller_System_Secur
      */
     public function replace_meta_content($key, $parameters = array()){
         foreach($this->metatags as $tag_id=>$metatag){
-            if($metatag[$key] == $parameters[$key]){
+            if(isset($metatag[$key]) && $metatag[$key] == $parameters[$key]){
                 $this->metatags[$tag_id] = $parameters;
             }
         }
