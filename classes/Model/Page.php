@@ -89,4 +89,29 @@ class Model_Page extends ORM{
     public function getKeywords(){
         return $this->keywords;
     }
+
+    public function sitemapPages($config){
+	    $path = 'media/upload/sitemap/';
+
+	    $sitemap = new Sitemap();
+	    $sitemap->gzip = TRUE;
+	    $sitemap_link = URL::base(KoMS::protocol()). $path ."pages.xml.gz";
+
+	    $priority = isset($config['priority']) ? $config['priority'] : '0.5';
+	    $frequency = isset($config['frequency']) ? $config['frequency'] : 'weekly';
+
+	    $url = new Sitemap_URL;
+		foreach ($config['links'] as $_link){
+			$url->set_loc(URL::base(KoMS::protocol()).$_link)
+			    ->set_last_mod( time() )
+			    ->set_change_frequency($frequency)
+			    ->set_priority($priority);
+			$sitemap->add($url);
+		}
+
+	    $response = $sitemap->render();
+	    $file = DOCROOT . $path . "pages.xml.gz";
+	    file_put_contents($file, $response);
+	    return array($sitemap_link);
+    }
 }
