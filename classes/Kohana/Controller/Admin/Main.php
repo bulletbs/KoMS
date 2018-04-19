@@ -106,6 +106,8 @@ class Kohana_Controller_Admin_Main extends Controller_System_Admin{
         Cache::instance()->delete_all();
 
         AssetsManager::instance()->cleanAssets();
+        if(class_exists('BoardCache'))
+            BoardCache::instance()->cleanData('*');
 
         Flash::success(__('Cache successfully cleared'));
         $this->redirect('admin');
