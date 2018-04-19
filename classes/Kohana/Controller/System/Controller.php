@@ -64,7 +64,9 @@ class Kohana_Controller_System_Controller extends Kohana_Controller
         }
         catch(Database_Exception $e){
             $message = Auth::instance()->logged_in('admin') ? $e->getMessage() : 'Database error appear while action execution';
-            throw new HTTP_Exception_500($message);
+            if(Request::current()->is_initial())
+                throw new HTTP_Exception_500($message);
+            return $this->response->body(Kohana::$environment == Kohana::DEVELOPMENT ? $e->getMessage() : '');
         }
     }
 
