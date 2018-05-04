@@ -41,7 +41,7 @@ class Kohana_Controller_System_Controller extends Kohana_Controller
             else{
                 $ismobile = $this->isMobile();
                 Session::instance()->set('show_version', $ismobile ? 'mobile' : 'full');
-                if(($ismobile && $this->subdomain==''))
+	            if(($ismobile && $this->subdomain=='') || (!$ismobile && $this->subdomain==$this->config['project']['mobile_subdomain']))
                     $this->redirect( KoMS::protocol($ismobile ? 'mobile' : 'global').'://'. ($ismobile ? $this->config['project']['mobile_subdomain'].'.' : '') . $this->config['project']['host'] . $_SERVER['REQUEST_URI']);
             }
              $show_version = !$this->allow_mobile ? 'full' : Session::instance()->get('show_version', 'full');
