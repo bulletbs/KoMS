@@ -30,7 +30,10 @@
             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo __('Welcome')?>, <?php echo $current_user_username?> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo  URL::site('admin/main/clear')?>"><i class="icon-cog"></i> <?php echo __('Clear cache')?></a></li>
-                    <li><a href="<?php echo  URL::site('admin/main/settings')?>"><i class="icon-cog"></i> <?php echo __('Settings')?></a></li>
+                    <li><a href="<?php echo  URL::site('admin/main/clearcache')?>"><i class="icon-cog"></i> <?php echo __('Clear cache only')?></a></li>
+                    <li><a href="<?php echo  URL::site('admin/main/clearstyle')?>"><i class="icon-cog"></i> <?php echo __('Clear styles only')?></a></li>
+                    <?if(class_exists('BoardCache')):?><li><a href="<?php echo  URL::site('admin/main/clearboard')?>"><i class="icon-cog"></i> <?php echo __('Clear board cache')?></a></li><?endif?>
+<!--                    <li><a href="--><?php //echo  URL::site('admin/main/settings')?><!--"><i class="icon-cog"></i> --><?php //echo __('Settings')?><!--</a></li>-->
                     <li class="divider"></li>
                     <li><a href="<?php echo  URL::site('admin/logout')?>"><i class="icon-off"></i> <?php echo __('Logout')?></a></li>
                 </ul>

@@ -25,6 +25,9 @@ class Kohana_Controller_Admin_Main extends Controller_System_Admin{
         'login',
         'logout',
         'clear',
+        'clearstyle',
+        'clearcache',
+        'clearboard',
         'sitemap',
     );
 
@@ -109,6 +112,25 @@ class Kohana_Controller_Admin_Main extends Controller_System_Admin{
         if(class_exists('BoardCache'))
             BoardCache::instance()->cleanData('*');
 
+        Flash::success(__('Cache successfully cleared'));
+        $this->redirect('admin');
+    }
+
+    public function action_clearstyle(){
+        AssetsManager::instance()->cleanAssets();
+        Flash::success(__('Cache successfully cleared'));
+        $this->redirect('admin');
+    }
+
+    public function action_clearcache(){
+        Cache::instance()->delete_all();
+        Flash::success(__('Cache successfully cleared'));
+        $this->redirect('admin');
+    }
+
+    public function action_clearboard(){
+        if(class_exists('BoardCache'))
+            BoardCache::instance()->cleanData('*');
         Flash::success(__('Cache successfully cleared'));
         $this->redirect('admin');
     }

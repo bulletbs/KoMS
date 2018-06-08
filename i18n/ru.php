@@ -21,7 +21,10 @@ return array(
     'Settings' => 'Настройки',
     'Welcome' => 'Привет',
     'Loading' => 'Загрузка',
-    'Clear cache' => 'Очистить кеш',
+    'Clear cache' => 'Очистить все',
+    'Clear cache only' => 'Очистить общий кеш',
+    'Clear styles only' => 'Очистить стили',
+    'Clear board cache' => 'Очистить кеш категорий',
     'Cache successfully cleared' => 'Кеш успешно очищен',
 
     /* CRUD translates */
