@@ -26,7 +26,7 @@ class Kohana_Controller_System_Page extends Controller_System_Template
              * only for Initial request OR error controller
              */
             if(Request::$current->is_initial() || $this->request->controller()=='Error'){
-                $this->breadcrumbs = Breadcrumbs::factory()->add($this->config['breadcrumb_root'], '/', 0);
+                $this->breadcrumbs = Breadcrumbs::factory()->add($this->config['breadcrumb_root'], Route::get('default')->uri(), 0);
             }
         }
     }
