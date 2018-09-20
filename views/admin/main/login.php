@@ -25,7 +25,7 @@
     <div class="row login_form">
 
             <form method="POST" action="" accept-charset="UTF-8" class="form-signin">
-                <legend><?php echo  $title ?> site backend</legend>
+                <legend><?php echo  $title ?></legend>
 
                 <?if(count($errors)):?>
                     <div class="alert alert-danger">
@@ -36,12 +36,12 @@
                     </div>
                 <?endif;?>
                 <input type="hidden" id="goto" name="goto" value="<?php echo  $goto ?>">
-                <input type="text" id="username" class="input-block-level" name="username" placeholder="Username">
-                <input type="password" id="password" class="input-block-level" name="password" placeholder="Password">
+                <input type="text" id="username" class="input-block-level" name="username" placeholder="<?php echo __('Username')?>">
+                <input type="password" id="password" class="input-block-level" name="password" placeholder="<?php echo __('Password')?>">
                 <label class="checkbox">
-                    <input type="checkbox" name="remember" value="1"> Remember Me
+                    <input type="checkbox" name="remember" value="1"> <?php echo __('Remember Me')?>
                 </label>
-                <input type="submit" name="submit" value="Sign in" class="btn btn-large btn-primary">
+                <input type="submit" name="submit" value="<?php echo __('Sign in')?>" class="btn btn-large btn-primary">
             </form>
     </div>
 </div>
