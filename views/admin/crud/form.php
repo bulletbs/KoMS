@@ -2,7 +2,7 @@
 
 <?php echo Form::open(Request::$initial->url() . URL::query(), array('class'=>'', 'enctype'=>'multipart/form-data'))?>
 <?if($errors) echo View::factory('admin/validation_errors', array('errors'=>$errors))->render()?>
-<?php echo Form::hidden('referer', Request::current()->referrer()) ?>
+<?php echo Form::hidden('referer', isset($_POST['referer']) ? $_POST['referer'] : Request::current()->referrer()) ?>
 <div class="pull-right">
     <?php echo  Form::input('submit',__('Save'),array('type'=>'submit', 'class'=>'btn btn-primary'))?>
     <?php echo  Form::button('cancel',__('Cancel'),array('class'=>'btn'))?>

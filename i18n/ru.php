@@ -47,6 +47,8 @@ return array(
     'Save' => 'Сохранить',
     'Cancel' => 'Отмена',
     'Order' => 'Сорт.',
+    'Some errors appear' => 'Ошибки в заполнении формы',
+    'Record was successfully saved' => 'Запись успешно сохранена',
 
     /* Pages */
     'Add new page' => 'Создание новой страницы',

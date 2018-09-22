@@ -343,7 +343,7 @@ class Kohana_Controller_Admin_Crud extends Controller_System_Admin{
         if(isset($_POST['submit'])){
             try{
                 $this->_saveModel($model);
-                Flash::success('Record was successfully saved');
+                Flash::success(__('Record was successfully saved'));
 //                $this->go($this->_crud_uri . URL::query());
                 $this->redirect( Arr::get($_POST, 'referer', $this->_crud_uri . URL::query()));
             }
