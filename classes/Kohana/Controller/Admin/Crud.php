@@ -101,8 +101,10 @@ class Kohana_Controller_Admin_Crud extends Controller_System_Admin{
                 'type'=>'select',
                 'data'=>array('options'=>array())
             ),
+            'receiver' => ['type' => 'legend', 'name'=>'Receiver'],
             'main' => array('type'=>'checkbox'),
             'source' => array('type'=>'text'),
+            'comments' => array('type'=>'textarea'),
             'date' => array('type'=>'datetime'),
             'brief' => array('type'=>'editor', 'config'=>'admin-120'),
             'content' => array('type'=>'editor'),

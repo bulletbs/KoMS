@@ -27,7 +27,7 @@
             <form method="POST" action="" accept-charset="UTF-8" class="form-signin">
                 <legend><?php echo  $title ?></legend>
 
-                <?if(count($errors)):?>
+                <?if(isset($errors) && count($errors)):?>
                     <div class="alert alert-danger">
                         <a class="close" data-dismiss="alert" href="#">×</a>
                         <?foreach($errors as $err):?>
