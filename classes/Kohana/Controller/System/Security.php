@@ -97,8 +97,7 @@ class Kohana_Controller_System_Security extends Controller_System_Controller
      */
     protected function passAuth(){
         if (Auth::instance()->logged_in('admin'))
-            return true;
-        // if action set as secured pass and check at passActionCheck
+            return true;// if action set as secured pass and check at passActionCheck
         if(is_array($this->secure_actions) && array_key_exists($this->request->action(), $this->secure_actions))
             return true;
         // Otherwise check only role
