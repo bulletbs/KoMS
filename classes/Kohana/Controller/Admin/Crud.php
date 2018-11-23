@@ -101,8 +101,10 @@ class Kohana_Controller_Admin_Crud extends Controller_System_Admin{
                 'type'=>'select',
                 'data'=>array('options'=>array())
             ),
+            'receiver' => ['type' => 'legend', 'name'=>'Receiver'],
             'main' => array('type'=>'checkbox'),
             'source' => array('type'=>'text'),
+            'comments' => array('type'=>'textarea'),
             'date' => array('type'=>'datetime'),
             'brief' => array('type'=>'editor', 'config'=>'admin-120'),
             'content' => array('type'=>'editor'),
@@ -343,7 +345,7 @@ class Kohana_Controller_Admin_Crud extends Controller_System_Admin{
         if(isset($_POST['submit'])){
             try{
                 $this->_saveModel($model);
-                Flash::success('Record was successfully saved');
+                Flash::success(__('Record was successfully saved'));
 //                $this->go($this->_crud_uri . URL::query());
                 $this->redirect( Arr::get($_POST, 'referer', $this->_crud_uri . URL::query()));
             }

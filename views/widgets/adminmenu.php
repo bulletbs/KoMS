@@ -13,7 +13,8 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li><a href="<?php echo  URL::site('admin')?>"><i class="glyphicon glyphicon-home icon-white"></i> <?php echo __('Home')?></a></li>
-            <? foreach($menu as $_menu): ?>
+            <?php foreach($menu as $_menu): ?>
+                <?php if(isset($_menu['role']) && !Auth::instance()->logged_in($_menu['role'])) continue; ?>
                 <?if(isset($_menu['submenu']) && count($_menu['submenu'])):?>
                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><?if(isset($_menu['icon'])):?><i class="glyphicon glyphicon-<?php echo $_menu['icon']?> icon-white"></i> <?endif?><?php echo  $_menu['label']?> <b class="caret"></b></a>
                         <ul class="dropdown-menu">

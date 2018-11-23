@@ -13,13 +13,10 @@ return array(
         'description'=>'Doreno - Доска бесплатных объявлений России. Здесь вы можете подать объявление на любую интересующую вас тему, будь то покупка или продажа товаров, предоставление услуг, поиск работы. Разместить объявление может каждый желающий абсолютно бесплатно.',
     ),
     'styles'=>array(
-        'media/libs/pure-release-0.6.0/buttons-min.css',
-        'media/libs/pure-release-0.6.0/pure-extras.css',
-        'media/libs/font-awesome-4.5.0/css/font-awesome.min.css',
-        'media/css/style.css',
+//        'media/css/style.css',
     ),
     'scripts'=>array(
-        'media/libs/jquery-1.11.1.min.js',
+//        'media/libs/jquery-1.11.1.min.js',
     ),
     'assets'=>array(
         'debug' => FALSE,

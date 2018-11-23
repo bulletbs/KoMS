@@ -9,6 +9,12 @@ return array(
     'Page not found' => 'Страница не найдена',
     'The requested page not found' => 'Запрошенная Вами страница не найдена.<br> Возможно, мы удалили или переместили ее.<br> Возможно, вы пришли по устаревшей ссылке или неверно ввели адрес.',
 
+    /* Login screen */
+    'Invalid user login or password' => 'Неправильное имя пользователя или пароль',
+    'Username' => 'E-mail',
+    'Remember Me' => 'Запомнить меня',
+    '' => '',
+
     /* Admin Menu translates */
     'Backend' => 'KoMS',
     'Home' => 'Главная',
@@ -41,6 +47,8 @@ return array(
     'Save' => 'Сохранить',
     'Cancel' => 'Отмена',
     'Order' => 'Сорт.',
+    'Some errors appear' => 'Ошибки в заполнении формы',
+    'Record was successfully saved' => 'Запись успешно сохранена',
 
     /* Pages */
     'Add new page' => 'Создание новой страницы',

@@ -77,7 +77,7 @@ class Kohana_Controller_Admin_Main extends Controller_System_Admin{
                     $this->go($goto);
                 }
                 else
-                    $errors = array("Invalid user login or password");
+                    $errors = array(__("Invalid user login or password"));
             }
             catch(ORM_Validation_Exception $e) {
                 $errors[] = $e->getMessage();
