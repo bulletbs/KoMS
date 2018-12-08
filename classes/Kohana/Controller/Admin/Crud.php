@@ -299,6 +299,9 @@ class Kohana_Controller_Admin_Crud extends Controller_System_Admin{
      * Add item
      */
     public function action_add(){
+		$this->styles[] = "media/libs/bootstrap/css/bootstrap-datetimepicker.min.css";
+		$this->scripts[] = "media/libs/moment/moment.min.js";
+		$this->scripts[] = "media/libs/bootstrap/js/bootstrap-datetimepicker.min.js";
         $model = $this->_loadModel();
         $this->_processForm($model);
     }
