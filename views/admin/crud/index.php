@@ -55,7 +55,7 @@
             <a data-bb="confirm" href="<?php echo URL::site($crud_uri . '/delete/'.$item->id . URL::query())?>" class='btn btn-inverse' title='<?php echo __('Delete')?>'><i class="icon-white glyphicon glyphicon-trash"></i></a>
             </div>
         </td>
-        <?if($order_field):?><td width="1%"><?php echo  Form::input('orders['.$item->id.']', $item->{$order_field}, array('class'=>'col-md-9'))?></td><?endif;?>
+        <?if($order_field):?><td class="order-col"><?php echo  Form::input('orders['.$item->id.']', $item->{$order_field}, array('class'=>''))?></td><?endif;?>
         <?if(count($multi_operations)):?><td><input type="checkbox" name="operate[]" value="<?php echo $item->id?>"></td><?endif;?>
     </tr>
 <? endforeach; ?>
