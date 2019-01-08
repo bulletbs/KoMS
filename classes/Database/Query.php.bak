@@ -37,7 +37,7 @@ class Database_Query extends Kohana_Database_Query {
 		if ($this->_lifetime !== NULL AND $this->_type === Database::SELECT)
 		{
 			// Set the cache key based on the database instance name and SQL
-			$cache_key = 'Database::query("'.$db.'", "'.$sql.'")';
+			$cache_key = 'Database::query("'.$db.'", "'.md5($sql).'")';
 
 			// Read the cache first to delete a possible hit with lifetime <= 0
 			if (($result = Cache::instance()->get($cache_key, NULL)) !== NULL
