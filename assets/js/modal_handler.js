@@ -7,9 +7,9 @@ OR
 $(function(){
     $('a[data-toggle="koms-modal"]').on("click", function(e){
         e.preventDefault();
-        var data = $(this).data();
-        var modal = $(data.target);
-        var url = $(this).attr('href') != typeof undefined ? $(this).attr('href') : data.source ;
+        var modaldata = $(this).data();
+        var modal = $(modaldata.target);
+        var url = $(this).attr('href') != typeof undefined ? $(this).attr('href') : modaldata.source ;
         $.ajax({
             url: url,
             dataType: 'json',
@@ -26,13 +26,15 @@ $(function(){
                             dataType: 'json',
                             success: function(data){
                                 if(data.status){
+									if(typeof modaldata['callback'] !== 'undefined')
+										window[modaldata['callback']]();
                                     modal.modal('hide');
                                     $('#notify').notify({
                                         message: { html: data.message }
                                     }).show();
                                 }
                                 else{
-                                    modal.find('#errors').html(data.errors);
+                                    modal.find('#errors').html(data.errors).addClass('alert alert-danger');
                                 }
                             }
                         });

@@ -106,3 +106,12 @@ body {
     box-shadow:  0px 0px 0px 0px #000;
     margin-top: 15px;
 }
+.order-col{
+
+}
+    .order-col input{
+        display: block;
+        margin: 0 auto;
+        width: 40px;
+        text-align: center;
+    }

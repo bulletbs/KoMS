@@ -1,4 +1,4 @@
-<form action="<?echo $target?>">
+<form action="<?echo $target?>" id="modal-form">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
